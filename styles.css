@@ -1,0 +1,203 @@
+/* The Village — public website
+   Brand tokens mirror apps/mobile (CLAUDE.md "Design Tokens").
+   Single stylesheet shared across index/privacy/terms/contact. */
+
+:root {
+  --cream:      #F5F0E8;
+  --rust:       #B85C38;
+  --rust-dark:  #9A4A2B;
+  --rust-light: #D4744F;
+  --brown-deep: #2C1A0E;
+  --brown-mid:  #4A2E1A;
+  --olive:      #5C6B3A;
+  --gold:       #C4A35A;
+  --text-dark:  #1C1008;
+  --text-mid:   #5A3E28;
+  --text-light: #9A8070;
+  --white:      #FDFAF5;
+  --border:     #E5DDD0;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream);
+  color: var(--text-dark);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--rust);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease;
+}
+a:hover { border-bottom-color: var(--rust); }
+
+header.site {
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+header.site .inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+header.site .brand {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--brown-deep);
+  border-bottom: none;
+}
+header.site nav {
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+}
+header.site nav a {
+  color: var(--text-mid);
+  border-bottom: none;
+}
+header.site nav a:hover, header.site nav a.active {
+  color: var(--rust);
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.15;
+  color: var(--brown-deep);
+  margin: 0 0 12px;
+}
+h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--brown-deep);
+  margin: 40px 0 12px;
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--brown-mid);
+  margin: 24px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+p { margin: 0 0 14px; color: var(--text-dark); }
+ul, ol { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+
+.lede {
+  font-size: 18px;
+  color: var(--text-mid);
+  margin-bottom: 28px;
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 32px;
+}
+
+.callout {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--rust);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 24px 0;
+}
+.callout strong { color: var(--brown-deep); }
+
+.callout.crisis { border-left-color: #B22A2A; }
+.callout.olive  { border-left-color: var(--olive); }
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0 16px;
+}
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr; }
+  h1 { font-size: 32px; }
+}
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.card a { border-bottom: none; }
+.card h3 {
+  margin: 0 0 6px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 18px;
+  color: var(--rust);
+}
+.card p { color: var(--text-mid); font-size: 14px; margin: 0; }
+
+table.disclosures {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-size: 14px;
+}
+table.disclosures th, table.disclosures td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+table.disclosures th {
+  background: var(--white);
+  color: var(--brown-deep);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+footer.site {
+  border-top: 1px solid var(--border);
+  background: var(--white);
+  padding: 32px 24px;
+  margin-top: 64px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+footer.site .inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+footer.site a { color: var(--text-mid); border-bottom: none; }
+footer.site a:hover { color: var(--rust); }
