@@ -1,21 +1,64 @@
-/* The Village — public website
-   Brand tokens mirror apps/mobile (CLAUDE.md "Design Tokens").
-   Single stylesheet shared across index/privacy/terms/contact. */
+/* villie — public website
+   Brand tokens follow project_brand_kit_v2.md (May 2026).
+   Old v1 tokens kept as deprecated aliases so the existing site pages
+   (index, privacy, terms, contact) don't break — to be removed once
+   every page has migrated to the v2 vocabulary. */
 
 :root {
-  --cream:      #F5F0E8;
-  --rust:       #B85C38;
-  --rust-dark:  #9A4A2B;
-  --rust-light: #D4744F;
-  --brown-deep: #2C1A0E;
-  --brown-mid:  #4A2E1A;
-  --olive:      #5C6B3A;
-  --gold:       #C4A35A;
-  --text-dark:  #1C1008;
-  --text-mid:   #5A3E28;
-  --text-light: #9A8070;
-  --white:      #FDFAF5;
-  --border:     #E5DDD0;
+  /* ───── v2 brand · Sunshine With Depth ───── */
+  /* Surfaces */
+  --cream:        #F4ECD8;  /* page */
+  --paper:        #FDFBF6;  /* alt page */
+  --parchment:    #EAE0C8;  /* cards */
+  --card:         #FEFAF6;  /* pure-white substitute */
+  --butter:       #FAD080;  /* sunshine honey — gentle hero halos */
+  --marigold:     #F2C130;  /* IG hero pop */
+  /* Action — one cinnamon per screen */
+  --cinnamon:     #C07840;
+  --cinnamon-dk:  #9F5F30;
+  /* Support row */
+  --caramel:      #D4A880;  /* italic names, neutral chips */
+  --blush:        #F5BEB6;  /* tenderness, empathy */
+  --salmon:       #EDA8A0;  /* empathy with energy */
+  /* Inks */
+  --cocoa:        #3D1F0E;  /* UI headlines — use instead of #000 */
+  --walnut:       #7A4A28;  /* IG body, never near-black */
+  --amber:        #A77349;  /* eyebrows, captions, secondary */
+  /* Reserve */
+  --sage:         #D8CEB0;  /* cool exhale */
+  --moss:         #606E46;  /* Heal chapter only */
+  --persimmon:    #E0543B;  /* IG only — NEVER in the app */
+  /* Manual chapter pills — IN-APP defaults (the "fresh" preset). The
+     hand-drawn sub-palette below is the alternate "original" preset. */
+  --pill-feel:    #EDA8A0;  /* salmon */
+  --pill-heal:    #606E46;  /* moss */
+  --pill-feed:    #FAD080;  /* butter */
+  --pill-sleep:   #D4A880;  /* caramel */
+  --pill-tips:    #C07840;  /* cinnamon */
+  /* Manual chapter sub-palette · original preset · use only when explicitly
+     swapping presets. Don't mix sub-palette + fresh on the same surface. */
+  --feel-orig:    #D09789;
+  --heal-orig:    #6E7E51;
+  --feed-orig:    #C7B39B;
+  --sleep-orig:   #A1775F;
+  --tips-orig:    #986A50;
+  /* Hairline border for cards */
+  --border:       #E5DBC4;
+  /* Pure white shouldn't be used — Card token covers it */
+  --white:        #FEFAF6;
+
+  /* ───── v1 deprecated aliases (kept until full site sweep) ───── */
+  --rust:         var(--cinnamon);
+  --rust-dark:    var(--cinnamon-dk);
+  --rust-light:   #D4744F;
+  --brown-deep:   var(--cocoa);
+  --brown-mid:    var(--walnut);
+  --olive:        var(--moss);
+  --gold:         var(--marigold);
+  --persimmon-old: #B22A2A;  /* v1 had no Persimmon equivalent; keep cite */
+  --text-dark:    var(--cocoa);
+  --text-mid:     var(--walnut);
+  --text-light:   var(--amber);
 }
 
 * { box-sizing: border-box; }
@@ -25,7 +68,10 @@ html, body {
   padding: 0;
   background: var(--cream);
   color: var(--text-dark);
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* v2: Plus Jakarta Sans replaces DM Sans for all body / UI / forms.
+     DM Sans is kept as a system fallback during the migration window
+     so older cached pages render passably until the new font loads. */
+  font-family: 'Plus Jakarta Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -60,6 +106,24 @@ header.site .brand {
   color: var(--brown-deep);
   border-bottom: none;
 }
+
+/* v2 wordmark — hand-drawn villie PNG. Replaces the Playfair italic
+   "The Village" wordmark on any page that opts in with `.brand-villie`.
+   56px desktop scale matches the brand kit's phone mockup; 44px on narrow
+   screens prevents the nav from crowding. */
+header.site .brand.brand-villie {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 0;
+}
+header.site .brand.brand-villie img {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+@media (max-width: 600px) {
+  header.site .brand.brand-villie img { height: 44px; }
+}
 header.site nav {
   display: flex;
   gap: 18px;
@@ -79,31 +143,46 @@ main {
   padding: 48px 24px 64px;
 }
 
+/* v2 typography — "Less italic. More presence."
+   Default Playfair is roman 700. Italic 600 is a per-page flourish, marked
+   inline via <em>. h3 swaps from DM Sans tracked-caps to JetBrains Mono,
+   walnut color, per the v2 eyebrow/metadata mapping. */
 h1 {
   font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--cocoa);
+  margin: 0 0 14px;
+}
+h1 em {
   font-style: italic;
   font-weight: 600;
-  font-size: 40px;
-  line-height: 1.15;
-  color: var(--brown-deep);
-  margin: 0 0 12px;
+  color: var(--caramel);
 }
 h2 {
   font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--cocoa);
+  margin: 44px 0 14px;
+}
+h2 em {
+  font-style: italic;
   font-weight: 600;
-  font-size: 22px;
-  color: var(--brown-deep);
-  margin: 40px 0 12px;
-  letter-spacing: -0.01em;
+  color: var(--caramel);
 }
 h3 {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--brown-mid);
-  margin: 24px 0 8px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--amber);
+  margin: 28px 0 10px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.26em;
 }
 
 p { margin: 0 0 14px; color: var(--text-dark); }
@@ -153,14 +232,22 @@ li { margin-bottom: 6px; }
   border-bottom: 1px solid var(--border);
 }
 .card a { border-bottom: none; }
+/* v2 card title — Playfair roman 700 cocoa, replaces v1 rust-uppercase eyebrow look */
 .card h3 {
-  margin: 0 0 6px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  margin: 0 0 8px;
   text-transform: none;
-  letter-spacing: 0;
-  font-size: 18px;
-  color: var(--rust);
+  letter-spacing: -0.012em;
+  font-size: 19px;
+  color: var(--cocoa);
 }
-.card p { color: var(--text-mid); font-size: 14px; margin: 0; }
+.card h3 em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--caramel);
+}
+.card p { color: var(--walnut); font-size: 14px; line-height: 1.5; margin: 0; }
 
 table.disclosures {
   width: 100%;

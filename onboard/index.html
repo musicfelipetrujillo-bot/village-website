@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>villie — specialist onboarding</title>
+  <meta name="description" content="Complete your invite to join the villie specialist directory." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- v2 brand stack: Caprasimo (wordmark only) · Playfair Display (display, roman 700 default + italic 600 flourish)
+       · Plus Jakarta Sans (body, buttons, forms) · JetBrains Mono (eyebrows, metadata). -->
+  <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <style>
+    /* ─── v2 brand · onboard-scoped styles
+       Per project_brand_kit_v2.md:
+       — Cream `#F4ECD8` page, Card `#FEFAF6` surfaces, Cocoa `#3D1F0E` ink
+       — Playfair roman 700 default (NOT italic), italic 600 = single flourish per state
+       — Plus Jakarta Sans 400/500/600 for all UI body/forms
+       — JetBrains Mono 500 for eyebrows, walnut color, tracking 0.26em uppercase
+       — Cinnamon `#C07840` is the action color — CTA only on this page
+       — Caramel `#D4A880` carries the italic accent (the second moment)
+       — One italic per state · 60·30·10 surface rule ───────────── */
+
+    main.onboard {
+      max-width: 620px;
+      padding: 32px 22px 80px;
+    }
+    .ob-state { display: none; }
+    .ob-state.active { display: block; }
+
+    /* ─── Masthead ──────────────────────────────────────────── */
+    .ob-masthead {
+      position: relative;
+      padding-right: 96px;
+      margin-bottom: 22px;
+    }
+    /* Eyebrow — JetBrains Mono, walnut, tracked caps. Per the cheat sheet. */
+    .ob-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      color: var(--walnut);
+      text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+    .ob-eyebrow::before {
+      content: "";
+      width: 18px;
+      height: 1px;
+      background: var(--walnut);
+      opacity: 0.55;
+    }
+    /* Title — Playfair roman 700 default. Italic em = the single flourish,
+       caramel-toned per the brand mapping ("Daily greeting · cocoa + caramel italic"). */
+    .ob-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 44px;
+      line-height: 1.02;
+      letter-spacing: -1.2px;
+      color: var(--cocoa);
+      margin: 0 0 12px;
+    }
+    .ob-title em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--caramel);
+    }
+    /* Caprasimo inline — used when "villie" appears as a body-copy wordmark
+       mention. Brand kit rule: fallback typesetting for the wordmark.
+       Cinnamon color always; slightly larger to compensate for Caprasimo's
+       lower x-height vs Playfair at the same nominal size. */
+    .ob-title .ob-villie-inline {
+      font-family: 'Caprasimo', Georgia, serif;
+      font-style: normal;
+      font-weight: 400;
+      color: var(--cinnamon);
+      font-size: 1.02em;
+      letter-spacing: -0.02em;
+    }
+    /* Tiny caramel dot — the "wordmark gesture" accent. Caramel, not cinnamon,
+       because the CTA already owns the one cinnamon spark. */
+    .ob-heart-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--caramel);
+      margin-left: 6px;
+      vertical-align: 0.5em;
+    }
+    /* Lead — Plus Jakarta 400, cocoa at slight emphasis-reduce. */
+    .ob-lead {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--cocoa);
+      opacity: 0.78;
+      max-width: 92%;
+      margin: 8px 0 0;
+    }
+
+    /* Villie — current PNG asset. The v2 kit's wordmark embeds a stylized bee
+       on the second `i` (butter body / cream wings / walnut linework); a fresh
+       asset is a follow-up brand task. For now the existing mascot illustration
+       sits faded in the masthead corner with the established sway. */
+    .ob-villie {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      width: 90px;
+      height: 90px;
+      opacity: 0.55;
+      transform-origin: 50% 80%;
+      animation: ob-villie-sway 8s ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+    }
+    .ob-villie img { width: 100%; height: 100%; object-fit: contain; }
+    @keyframes ob-villie-sway {
+      0%, 100% { transform: rotate(12deg) translateY(0); }
+      50%      { transform: rotate(15deg) translateY(-3px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ob-villie { animation: none; transform: rotate(13deg); }
+    }
+
+    /* ─── Cards ─── Card surface, hairline border, soft tinted shadow.
+       One DecorativeMark per card, half-bleeding a corner. ─── */
+    .ob-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px 18px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 0 rgba(61,31,14,0.03), 0 10px 24px -20px rgba(122,74,40,0.18);
+    }
+    /* Card eyebrow — JetBrains Mono walnut, smaller than masthead eyebrow */
+    .ob-card-eyebrow {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      color: var(--walnut);
+      text-transform: uppercase;
+      margin: 0 0 6px;
+      position: relative;
+      z-index: 2;
+    }
+    /* Card title — Playfair roman 700. NO italic on card titles (italic rule:
+       only one flourish per state, which lives on the masthead title). */
+    .ob-card-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+      color: var(--cocoa);
+      margin: 0 0 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* DecorativeMarks — colors shifted to v2 brand palette */
+    /* YolkCircle — butter, the "sunshine halo" per the kit */
+    .ob-mark-yolk {
+      position: absolute;
+      top: -28px;
+      right: -28px;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--butter);
+      opacity: 0.65;
+      z-index: 0;
+    }
+    /* YolkRing — caramel outline */
+    .ob-mark-ring {
+      position: absolute;
+      top: -22px;
+      right: -22px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--caramel);
+      opacity: 0.55;
+      z-index: 0;
+    }
+    /* ScribbleMark — walnut strokes */
+    .ob-mark-scribble {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      opacity: 0.45;
+      z-index: 1;
+    }
+    .ob-mark-scribble span {
+      height: 1.2px;
+      background: var(--walnut);
+      transform-origin: left center;
+      display: block;
+    }
+    .ob-mark-scribble span:nth-child(1) { width: 22px; transform: rotate(-6deg); }
+    .ob-mark-scribble span:nth-child(2) { width: 16px; transform: rotate(2deg);  }
+    .ob-mark-scribble span:nth-child(3) { width: 18px; transform: rotate(-3deg); }
+
+    /* ─── Form fields — Plus Jakarta everywhere ─── */
+    .ob-field { margin-bottom: 12px; position: relative; z-index: 2; }
+    .ob-field:last-child { margin-bottom: 0; }
+
+    /* Form labels — Plus Jakarta 500, amber. Per the kit: "Label · Plus Jakarta 500". */
+    .ob-label {
+      display: block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    /* Required marker — caramel, NOT cinnamon (preserve cinnamon for the CTA) */
+    .ob-label .ob-req {
+      color: var(--caramel);
+      margin-left: 3px;
+    }
+    .ob-help {
+      display: block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      color: var(--walnut);
+      opacity: 0.7;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .ob-input, .ob-select, .ob-textarea {
+      width: 100%;
+      padding: 11px 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      color: var(--cocoa);
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 140ms ease, background 140ms ease, box-shadow 160ms ease;
+    }
+    .ob-input:focus, .ob-select:focus, .ob-textarea:focus {
+      border-color: var(--cinnamon);
+      background: var(--card);
+      box-shadow: 0 0 0 3px rgba(192,120,64,0.12);
+    }
+    .ob-input[disabled] {
+      background: var(--parchment);
+      color: var(--walnut);
+      cursor: not-allowed;
+      opacity: 0.85;
+    }
+    .ob-input.ob-invalid, .ob-select.ob-invalid, .ob-textarea.ob-invalid {
+      border-color: #B22A2A;
+      background: #FBEFE9;
+    }
+    .ob-textarea { min-height: 88px; resize: vertical; line-height: 1.5; }
+    .ob-select {
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, var(--walnut) 50%),
+        linear-gradient(135deg, var(--walnut) 50%, transparent 50%);
+      background-position:
+        calc(100% - 18px) 50%,
+        calc(100% - 13px) 50%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      padding-right: 32px;
+    }
+    .ob-pw-wrap { position: relative; }
+    /* Password show/hide — inline link style: Plus Jakarta 600, cinnamon.
+       Inline links carry cinnamon per the cheat sheet ("Inline link · Cinnamon"),
+       and this counts as a link affordance, not a "spark per surface" element. */
+    .ob-pw-toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--cinnamon);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      padding: 4px 6px;
+    }
+    .ob-pw-toggle:hover { color: var(--cinnamon-dk); }
+
+    /* ─── CTA — the one cinnamon spark per the brand rule ─── */
+    .ob-cta {
+      width: 100%;
+      padding: 14px 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--card);
+      background: var(--cinnamon);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 14px -4px rgba(192,120,64,0.45);
+      transition: transform 120ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+    .ob-cta:hover { background: var(--cinnamon-dk); }
+    .ob-cta:active { transform: translateY(-1px); box-shadow: 0 2px 8px -2px rgba(192,120,64,0.40); }
+    .ob-cta[disabled] {
+      background: var(--amber);
+      cursor: progress;
+      box-shadow: none;
+      opacity: 0.85;
+    }
+
+    /* ─── Banner ─── error / info inline ─── */
+    .ob-banner {
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0 0 14px;
+      border: 1px solid;
+    }
+    .ob-banner.error { background: #FBEFE9; color: #8B2A2A; border-color: #E5B8AD; }
+    .ob-banner.info  { background: var(--butter); color: var(--cocoa); border-color: var(--caramel); }
+
+    /* ─── Loading skeleton ─── */
+    .ob-skel {
+      background: linear-gradient(90deg, var(--card) 0%, var(--parchment) 50%, var(--card) 100%);
+      background-size: 200% 100%;
+      animation: ob-skel-shimmer 1.4s ease-in-out infinite;
+      border-radius: 6px;
+    }
+    @keyframes ob-skel-shimmer {
+      0%   { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+    .ob-skel-line { height: 14px; margin-bottom: 10px; }
+    .ob-skel-title { height: 36px; width: 70%; margin-bottom: 16px; }
+
+    /* ─── Tighten section gaps on small phones ─── */
+    @media (max-width: 480px) {
+      .ob-title { font-size: 36px; }
+      .ob-card { padding: 16px 16px; }
+      .ob-villie { width: 76px; height: 76px; right: -6px; top: -2px; }
+      main.onboard { padding: 24px 16px 56px; }
+    }
+
+    /* villie wordmark styling now lives in shared styles.css
+       (.brand.brand-villie) so every site page picks up the v2 wordmark
+       once it adds the class + img markup. */
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="inner">
+      <a href="../index.html" class="brand brand-villie" aria-label="villie home"><img src="../villie-wordmark.png" alt="villie" /></a>
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="onboard">
+
+    <!-- ─── No-JS fallback ────────────────────────────────── -->
+    <noscript>
+      <div class="ob-masthead">
+        <p class="ob-eyebrow">Specialist onboarding</p>
+        <h1 class="ob-title">JavaScript <em>required.</em><span class="ob-heart-dot"></span></h1>
+        <p class="ob-lead">This page needs JavaScript to verify your invite link and create your account. Enable it in your browser, or open your invite link in Safari or Chrome.</p>
+      </div>
+      <div class="ob-card">
+        <p class="ob-card-eyebrow">Need help</p>
+        <h2 class="ob-card-title">Email us, we'll help.</h2>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif; color: var(--cocoa); opacity:0.8; font-size: 14px;">
+          Reach <a href="mailto:hello@villie.app" style="color: var(--cinnamon); border-bottom: 1px solid currentColor;">hello@villie.app</a> from the address you were invited at and we'll get you signed up another way.
+        </p>
+      </div>
+    </noscript>
+
+    <!-- ─── State A · Loading ─────────────────────────────── -->
+    <section class="ob-state active" id="state-loading" aria-live="polite">
+      <div class="ob-masthead">
+        <p class="ob-eyebrow">Specialist onboarding</p>
+        <div class="ob-skel ob-skel-title"></div>
+        <div class="ob-skel ob-skel-line" style="width: 86%"></div>
+        <div class="ob-skel ob-skel-line" style="width: 60%"></div>
+      </div>
+      <div class="ob-card">
+        <div class="ob-skel ob-skel-line" style="width: 40%; height: 12px;"></div>
+        <div class="ob-skel ob-skel-line" style="width: 90%; height: 38px;"></div>
+        <div class="ob-skel ob-skel-line" style="width: 30%; height: 12px;"></div>
+        <div class="ob-skel ob-skel-line" style="width: 80%; height: 38px;"></div>
+      </div>
+    </section>
+
+    <!-- ─── State B · Invalid token ───────────────────────── -->
+    <section class="ob-state" id="state-invalid" aria-live="polite">
+      <div class="ob-masthead">
+        <span class="ob-villie" aria-hidden="true"><img src="../villie-bee.png" alt="" /></span>
+        <p class="ob-eyebrow">Specialist onboarding</p>
+        <h1 class="ob-title">This link <em>can't open.</em><span class="ob-heart-dot"></span></h1>
+        <p class="ob-lead" id="invalid-detail">Your invite link is expired, already used, or no longer valid.</p>
+      </div>
+      <div class="ob-card">
+        <p class="ob-card-eyebrow">What's next</p>
+        <h2 class="ob-card-title">Reach back out, we'll fix it.</h2>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif; color: var(--cocoa); opacity:0.8; font-size: 14px; line-height: 1.55;">
+          Email <a href="mailto:hello@villie.app" style="color: var(--cinnamon); border-bottom: 1px solid currentColor;">hello@villie.app</a> from the same address you were invited at. We'll issue a fresh link the same day.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── State C · Form ────────────────────────────────── -->
+    <section class="ob-state" id="state-form">
+      <div class="ob-masthead">
+        <span class="ob-villie" aria-hidden="true"><img src="../villie-bee.png" alt="" /></span>
+        <p class="ob-eyebrow">Specialist onboarding</p>
+        <!-- Italic accent lives here — the one flourish per brand kit.
+             Default: italic on the verb-phrase "set you up." Personalized:
+             JS swaps in "Welcome, <em>Maya.</em>" if the invite carries a name.
+             We deliberately don't put "villie" in this title — the wordmark
+             lives in the site nav PNG, and putting it here in Caprasimo
+             cinnamon would compete with the cinnamon CTA below (one spark rule). -->
+        <h1 class="ob-title" id="form-title">Let's set you <em>up.</em><span class="ob-heart-dot"></span></h1>
+        <p class="ob-lead" id="form-lead">We pre-filled what we knew about you. Edit anything that's off, set a password, and you're live in 3 minutes.</p>
+      </div>
+
+      <div class="ob-banner error" id="form-error" hidden></div>
+
+      <form id="onboard-form" novalidate>
+        <!-- Account -->
+        <div class="ob-card">
+          <span class="ob-mark-yolk" aria-hidden="true"></span>
+          <p class="ob-card-eyebrow">Account</p>
+          <h2 class="ob-card-title">Your sign-in.</h2>
+
+          <div class="ob-field">
+            <label class="ob-label" for="f-email">Email</label>
+            <input class="ob-input" id="f-email" type="email" autocomplete="email" disabled />
+            <span class="ob-help">This is the email your invite was sent to. Reach out to us if it's wrong.</span>
+          </div>
+
+          <div class="ob-field">
+            <label class="ob-label" for="f-password">Set a password<span class="ob-req">*</span></label>
+            <div class="ob-pw-wrap">
+              <input class="ob-input" id="f-password" type="password" minlength="8" autocomplete="new-password" required />
+              <button type="button" class="ob-pw-toggle" id="f-password-toggle" aria-pressed="false" aria-label="Show password">Show</button>
+            </div>
+            <span class="ob-help">At least 8 characters. You'll use this with your email to sign in.</span>
+          </div>
+        </div>
+
+        <!-- Professional details -->
+        <div class="ob-card">
+          <span class="ob-mark-ring" aria-hidden="true"></span>
+          <p class="ob-card-eyebrow">Credentials</p>
+          <h2 class="ob-card-title">How you practice.</h2>
+
+          <div class="ob-field">
+            <label class="ob-label" for="f-fullname">Full name<span class="ob-req">*</span></label>
+            <input class="ob-input" id="f-fullname" type="text" autocomplete="name" maxlength="120" required />
+          </div>
+
+          <div class="ob-field">
+            <label class="ob-label" for="f-credentials">Credentials &amp; title<span class="ob-req">*</span></label>
+            <input class="ob-input" id="f-credentials" type="text" autocomplete="off" maxlength="60" placeholder="e.g. MD, IBCLC, CD(DONA)" required />
+            <span class="ob-help">How you sign your name professionally. Shown next to your name on your profile.</span>
+          </div>
+
+          <div class="ob-field">
+            <label class="ob-label" for="f-specialty">Specialty<span class="ob-req">*</span></label>
+            <select class="ob-select" id="f-specialty" required>
+              <option value="">Choose one</option>
+              <option value="ob_gyn">OB/GYN</option>
+              <option value="midwife">Midwife</option>
+              <option value="doula">Doula</option>
+              <option value="lactation_consultant">Lactation consultant</option>
+              <option value="pediatrician">Pediatrician</option>
+              <option value="sleep_coach">Sleep coach</option>
+              <option value="pelvic_floor_pt">Pelvic-floor PT</option>
+              <option value="perinatal_dietitian">Perinatal dietitian</option>
+              <option value="ppd_therapist">PPD therapist</option>
+            </select>
+          </div>
+
+          <div class="ob-field">
+            <label class="ob-label" for="f-npi">NPI number</label>
+            <input class="ob-input" id="f-npi" type="text" inputmode="numeric" maxlength="20" autocomplete="off" />
+            <span class="ob-help">10-digit National Provider Identifier, if you have one. Optional — non-billing roles can skip.</span>
+          </div>
+        </div>
+
+        <!-- About -->
+        <div class="ob-card">
+          <span class="ob-mark-scribble" aria-hidden="true"><span></span><span></span><span></span></span>
+          <p class="ob-card-eyebrow">About you</p>
+          <h2 class="ob-card-title">Tell families who you are.</h2>
+
+          <div class="ob-field">
+            <label class="ob-label" for="f-bio">Short bio</label>
+            <textarea class="ob-textarea" id="f-bio" maxlength="2000" placeholder="A few sentences — your approach, what families can expect, anything that helps a postpartum mom decide if you're the right fit."></textarea>
+            <span class="ob-help" id="f-bio-count">2000 characters left.</span>
+          </div>
+        </div>
+
+        <button type="submit" class="ob-cta" id="f-submit" aria-live="polite">Join the directory →</button>
+      </form>
+    </section>
+
+    <!-- ─── State D · Submitting ──────────────────────────── -->
+    <section class="ob-state" id="state-submitting" aria-live="polite">
+      <div class="ob-masthead">
+        <span class="ob-villie" aria-hidden="true"><img src="../villie-bee.png" alt="" /></span>
+        <p class="ob-eyebrow">Almost there</p>
+        <h1 class="ob-title">Creating your <em>profile.</em><span class="ob-heart-dot"></span></h1>
+        <p class="ob-lead">One moment — we're setting up your account and adding you to the directory.</p>
+      </div>
+      <div class="ob-card">
+        <div class="ob-skel ob-skel-line" style="width: 70%"></div>
+        <div class="ob-skel ob-skel-line" style="width: 50%"></div>
+        <div class="ob-skel ob-skel-line" style="width: 80%"></div>
+      </div>
+    </section>
+
+    <!-- ─── State E · Success ─────────────────────────────── -->
+    <section class="ob-state" id="state-success" aria-live="polite">
+      <div class="ob-masthead">
+        <span class="ob-villie" aria-hidden="true"><img src="../villie-bee.png" alt="" /></span>
+        <p class="ob-eyebrow">You're in</p>
+        <!-- Success state has no CTA → the wordmark gets its cinnamon spark.
+             "villie" is set in Caprasimo cinnamon inline (the body-copy
+             wordmark fallback pattern per the brand kit). No italic here —
+             the wordmark gesture is the one moment this state needs. -->
+        <h1 class="ob-title">Welcome to <span class="ob-villie-inline">villie.</span><span class="ob-heart-dot"></span></h1>
+        <p class="ob-lead" id="success-lead">Your profile is live. Families searching in your area can find you now.</p>
+      </div>
+      <div class="ob-card">
+        <span class="ob-mark-yolk" aria-hidden="true"></span>
+        <p class="ob-card-eyebrow">Next steps</p>
+        <h2 class="ob-card-title">Make your profile shine.</h2>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif; color: var(--cocoa); opacity:0.85; font-size: 14px; line-height: 1.55; max-width: 92%;">
+          Sign in to the iOS or Android app to upload a photo, list services and pricing, set your practice location, and turn on telehealth.
+        </p>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif; color: var(--walnut); opacity:0.75; font-size: 13px; line-height: 1.5; margin-top: 14px;">
+          Until your photo's added, your card shows a quiet placeholder. Most moms scroll past placeholder cards — so this is the one thing worth doing today.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <div class="inner">
+      <span>© 2026 The Village</span>
+      <span>
+        <a href="../privacy.html">Privacy</a> ·
+        <a href="../terms.html">Terms</a> ·
+        <a href="../contact.html">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.4';
+
+    // Anon key is public by design — RLS gates everything. Hardcoded
+    // here so the static page can call the public RPC without auth.
+    const SUPABASE_URL  = 'https://albyndcruwopulazvpjs.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsYnluZGNydXdvcHVsYXp2cGpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MjcwNjgsImV4cCI6MjA5MjIwMzA2OH0.VVeWWDdgMhPQRrpNDc3X9GszEv3GGxdeKnJpQyVK2fY';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    // ─── State machine ─────────────────────────────────────
+    const STATES = ['loading', 'invalid', 'form', 'submitting', 'success'];
+    function show(state) {
+      STATES.forEach((s) => {
+        document.getElementById(`state-${s}`).classList.toggle('active', s === state);
+      });
+      // Scroll to top on state change so a long form doesn't strand the user.
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ─── Token parse ───────────────────────────────────────
+    const token = new URLSearchParams(window.location.search).get('token') || '';
+    if (!token || token.length < 32) {
+      document.getElementById('invalid-detail').textContent =
+        "We couldn't find a token on this URL. Make sure you opened the full link from your invite email.";
+      show('invalid');
+    } else {
+      verifyAndRender(token);
+    }
+
+    // ─── Step 1 · Verify invite + pre-fill ─────────────────
+    async function verifyAndRender(token) {
+      try {
+        const { data, error } = await supabase.rpc('get_specialist_invite_by_token', {
+          p_token: token,
+        });
+        if (error) throw error;
+        const invite = Array.isArray(data) ? data[0] : data;
+        if (!invite) {
+          document.getElementById('invalid-detail').textContent =
+            "This invite link is expired, already used, or no longer valid.";
+          show('invalid');
+          return;
+        }
+        prefillForm(invite);
+        show('form');
+      } catch (e) {
+        console.error('invite verify failed', e);
+        document.getElementById('invalid-detail').textContent =
+          "Something went wrong looking up your invite. Please try the link again or email us.";
+        show('invalid');
+      }
+    }
+
+    function prefillForm(invite) {
+      document.getElementById('f-email').value = invite.email || '';
+      if (invite.full_name)   document.getElementById('f-fullname').value    = invite.full_name;
+      if (invite.credentials) document.getElementById('f-credentials').value = invite.credentials;
+      if (invite.specialty)   document.getElementById('f-specialty').value   = invite.specialty;
+      if (invite.npi_number)  document.getElementById('f-npi').value         = invite.npi_number;
+      // Personalize the title if we know who they are.
+      // Per brand: italic on the user's name is the single canonical italic
+      // moment on a daily-greeting surface. Name in caramel italic (the
+      // <em> rule already maps em → caramel italic in the page CSS).
+      if (invite.full_name) {
+        const first = invite.full_name.trim().split(/\s+/)[0];
+        document.getElementById('form-title').innerHTML =
+          `Welcome, <em>${escapeHtml(first)}.</em><span class="ob-heart-dot"></span>`;
+      }
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+      }[c]));
+    }
+
+    // ─── Password show/hide ───────────────────────────────
+    const pwInput = document.getElementById('f-password');
+    const pwToggle = document.getElementById('f-password-toggle');
+    pwToggle.addEventListener('click', () => {
+      const showing = pwInput.type === 'text';
+      pwInput.type = showing ? 'password' : 'text';
+      pwToggle.textContent = showing ? 'Show' : 'Hide';
+      pwToggle.setAttribute('aria-pressed', showing ? 'false' : 'true');
+      pwToggle.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+    });
+
+    // ─── Bio counter ──────────────────────────────────────
+    const bio = document.getElementById('f-bio');
+    const bioCount = document.getElementById('f-bio-count');
+    bio.addEventListener('input', () => {
+      const left = 2000 - bio.value.length;
+      bioCount.textContent = `${left.toLocaleString()} characters left.`;
+    });
+
+    // ─── Submit ───────────────────────────────────────────
+    const form = document.getElementById('onboard-form');
+    const submitBtn = document.getElementById('f-submit');
+    const errorBanner = document.getElementById('form-error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBanner.hidden = true;
+      clearFieldErrors();
+
+      const payload = collectAndValidate();
+      if (!payload) return;
+
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.textContent = 'Creating account…';
+      show('submitting');
+
+      try {
+        // Step 1 — accept the invite (creates auth.users + specialists row).
+        const acceptResp = await fetch(
+          `${SUPABASE_URL}/functions/v1/specialist-invite-accept`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPABASE_ANON,
+            },
+            body: JSON.stringify({ token, ...payload }),
+          },
+        );
+        const acceptBody = await acceptResp.json().catch(() => ({}));
+        if (!acceptResp.ok) {
+          throw new Error(acceptBody?.error || 'Could not finish onboarding. Please try again.');
+        }
+
+        // Step 2 — sign in so the success state is a signed-in session.
+        // We swallow signIn errors — the account is already created and
+        // they can sign in from the app — but try to land them in a
+        // logged-in state on the web for a continuous feel.
+        await supabase.auth.signInWithPassword({
+          email: acceptBody.email,
+          password: payload.password,
+        }).catch((e) => console.warn('post-accept signIn failed', e));
+
+        show('success');
+      } catch (err) {
+        console.error('submit failed', err);
+        const raw = String(err.message ?? err);
+        // Email-collision recovery — if accept returned 409 ("already registered"),
+        // route them to a clearer path instead of dumping the raw error.
+        const isAlreadyRegistered = /already (registered|exists)/i.test(raw);
+        errorBanner.innerHTML = isAlreadyRegistered
+          ? 'It looks like an account already exists for this email. Sign in to the villie iOS or Android app with your existing password, or email <a href="mailto:hello@villie.app" style="color: var(--cinnamon); border-bottom: 1px solid currentColor;">hello@villie.app</a> if you need help.'
+          : escapeHtml(raw);
+        errorBanner.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-busy');
+        submitBtn.textContent = 'Join the directory →';
+        show('form');
+      }
+    });
+
+    function collectAndValidate() {
+      const password    = pwInput.value;
+      const fullName    = document.getElementById('f-fullname').value.trim();
+      const credentials = document.getElementById('f-credentials').value.trim();
+      const specialty   = document.getElementById('f-specialty').value;
+      const npiNumber   = document.getElementById('f-npi').value.trim() || null;
+      const bioVal      = document.getElementById('f-bio').value.trim() || null;
+
+      const errors = [];
+      if (password.length < 8) {
+        markInvalid('f-password'); errors.push('Password must be at least 8 characters.');
+      }
+      if (!fullName) {
+        markInvalid('f-fullname'); errors.push('Please enter your full name.');
+      }
+      if (!credentials) {
+        markInvalid('f-credentials'); errors.push('Please enter your title (e.g. MD, IBCLC).');
+      }
+      if (!specialty) {
+        markInvalid('f-specialty'); errors.push('Please choose your specialty.');
+      }
+      if (npiNumber && !/^\d{1,20}$/.test(npiNumber)) {
+        markInvalid('f-npi'); errors.push('NPI number must be digits only.');
+      }
+
+      if (errors.length) {
+        errorBanner.textContent = errors[0];
+        errorBanner.hidden = false;
+        return null;
+      }
+
+      return {
+        password,
+        full_name: fullName,
+        credentials,
+        specialty,
+        npi_number: npiNumber,
+        bio: bioVal,
+      };
+    }
+
+    function markInvalid(id) {
+      document.getElementById(id).classList.add('ob-invalid');
+    }
+    function clearFieldErrors() {
+      document.querySelectorAll('.ob-invalid').forEach((el) => el.classList.remove('ob-invalid'));
+    }
+    // Clear field error as user fixes it.
+    ['f-password','f-fullname','f-credentials','f-specialty','f-npi','f-bio'].forEach((id) => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', () => el.classList.remove('ob-invalid'));
+      el.addEventListener('change', () => el.classList.remove('ob-invalid'));
+    });
+  </script>
+</body>
+</html>
