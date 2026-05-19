@@ -109,7 +109,16 @@
       position: relative; isolation: isolate;
     }
     @media (max-width: 800px) {
-      .lp-hero { grid-template-columns: 1fr; padding: 32px 0 var(--s-7); gap: var(--s-6); }
+      .lp-hero {
+        grid-template-columns: 1fr;
+        padding: 32px 0 var(--s-6);
+        gap: var(--s-5);
+      }
+      /* Bee block sat at 280px min-height even when stacked, creating a
+         big empty halo zone between the CTA and the next section. Shrink
+         it on mobile so the page reads tight. */
+      .lp-hero-bee { min-height: 200px; }
+      .lp-hero-bee-img { width: clamp(140px, 44vw, 200px); }
     }
 
     /* Hero paper grain noise overlay */
