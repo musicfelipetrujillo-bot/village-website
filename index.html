@@ -65,8 +65,23 @@
       header.site .brand.brand-villie img { height: 72px; }
       header.site .inner { padding-left: 2px; }
     }
+    /* Phone: stack nav under the wordmark so neither wraps mid-link.
+       Wordmark stays prominent (left-anchored) and nav lives on its
+       own row, left-aligned, single-line, slightly tightened. */
     @media (max-width: 600px) {
-      header.site .brand.brand-villie img { height: 56px; }
+      header.site .inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--s-3);
+        padding: 14px 16px 12px 8px;
+      }
+      header.site .brand.brand-villie img { height: 64px; }
+      header.site nav {
+        gap: 14px;
+        font-size: 13px;
+        flex-wrap: wrap;
+      }
+      header.site nav a { white-space: nowrap; }
     }
     .lp-footer-mark { display: inline-block; vertical-align: middle; margin-right: var(--s-2); }
     .lp-footer-mark img { height: 22px; width: auto; display: block; opacity: 0.8; }
