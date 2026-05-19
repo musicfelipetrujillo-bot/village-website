@@ -51,10 +51,22 @@
       position: relative; isolation: isolate;
     }
 
-    /* ── Wordmark — bumped to 64px for landing presence ── */
-    header.site .brand.brand-villie img { height: 64px; }
+    /* ── Wordmark — bigger + flushed left for landing presence.
+       Landing uses a 1180px container; override the shared header's
+       760px clamp so the wordmark can sit closer to the page edge.
+       Padding tightened from 24px → 12px to push further left. */
+    header.site .inner {
+      max-width: 1180px;
+      padding-left: 4px;
+      padding-right: 24px;
+    }
+    header.site .brand.brand-villie img { height: 104px; }
+    @media (max-width: 900px) {
+      header.site .brand.brand-villie img { height: 72px; }
+      header.site .inner { padding-left: 2px; }
+    }
     @media (max-width: 600px) {
-      header.site .brand.brand-villie img { height: 48px; }
+      header.site .brand.brand-villie img { height: 56px; }
     }
     .lp-footer-mark { display: inline-block; vertical-align: middle; margin-right: var(--s-2); }
     .lp-footer-mark img { height: 22px; width: auto; display: block; opacity: 0.8; }
