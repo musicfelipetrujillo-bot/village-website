@@ -3,19 +3,610 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>villie — A village for every mom</title>
-  <meta name="description" content="villie is a maternal-health mobile app supporting expecting and postpartum families through their first year. Find specialists, connect with peer breast-milk donors, join private support rooms, and track milestones." />
+  <title>villie · A village for every mom</title>
+  <meta name="description" content="villie is a maternal-health mobile app supporting expecting and postpartum families through their first year. The manual for week one through year one, peer milk-sharing, vetted specialists, safety-checked secondhand gear, and real-world plans nearby: stroller walks, postpartum yoga, sensory play, popups." />
+  <meta name="theme-color" content="#F9F3E2" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="villie · A village for every mom" />
+  <meta property="og:description" content="A warm companion for the postpartum window. The manual, peer milk-sharing, vetted specialists, safety-checked secondhand gear, and real-world plans nearby." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://villieapp.com/" />
+  <meta property="og:image" content="https://villieapp.com/villie-wordmark.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="villie-v-mark.png" />
+
+  <style>
+    /* v9 landing — Felipe-approved iteration state (May 2026).
+       Built on shared styles.css brand tokens. Editorial postpartum-companion
+       vibe. 60/30/10 surface rule: 60% cream/paper, 30% earth, 10% cinnamon. */
+
+    /* ── Spacing scale (4px base) ── */
+    :root {
+      --s-1:  4px;  --s-2:  8px;  --s-3: 12px;  --s-4: 16px;
+      --s-5: 24px;  --s-6: 32px;  --s-7: 48px;  --s-8: 64px; --s-9: 96px;
+    }
+
+    /* ── Page background matches the mobile app's V9PageBackdrop.
+       Same 7-stop vertical U-shape from
+       apps/mobile/src/components/shared/V9PageBackdrop.tsx so the landing
+       reads as the app's web extension, not a separate brand. ── */
+    body {
+      background:
+        linear-gradient(
+          to bottom,
+          #FCF7F2 0%,
+          #FCFAF6 12%,
+          #FDFBF6 25%,
+          #FDFBF6 75%,
+          #FCFAF6 88%,
+          #FBF5EF 95%,
+          #FAF1EA 100%
+        );
+      background-attachment: fixed;
+      position: relative; isolation: isolate;
+    }
+
+    /* ── Wordmark — bumped to 64px for landing presence ── */
+    header.site .brand.brand-villie img { height: 64px; }
+    @media (max-width: 600px) {
+      header.site .brand.brand-villie img { height: 48px; }
+    }
+    .lp-footer-mark { display: inline-block; vertical-align: middle; margin-right: var(--s-2); }
+    .lp-footer-mark img { height: 22px; width: auto; display: block; opacity: 0.8; }
+
+    /* ── Wider container ── */
+    main.lp { max-width: 1180px; margin: 0 auto; padding: 0 24px 96px; position: relative; }
+
+    /* ── Ambient bees scattered in page margins ── */
+    .lp-bg-bee {
+      position: absolute; pointer-events: none; z-index: -1;
+      background: url("villie-bee.png") center/contain no-repeat;
+      opacity: 0.18; filter: saturate(0.8);
+    }
+    .lp-bg-bee--1 { top: 40%; right: -10px; width: 36px; height: 36px; transform: rotate(-12deg); }
+    .lp-bg-bee--2 { top: 78%; left: -12px;  width: 28px; height: 28px; transform: rotate(18deg); }
+    @media (max-width: 800px) { .lp-bg-bee { display: none; } }
+
+    /* ── Hero ── */
+    .lp-hero {
+      padding: var(--s-7) 0 64px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+      position: relative; isolation: isolate;
+    }
+    @media (max-width: 800px) {
+      .lp-hero { grid-template-columns: 1fr; padding: 32px 0 var(--s-7); gap: var(--s-6); }
+    }
+
+    /* Hero paper grain noise overlay */
+    .lp-hero::after {
+      content: ""; position: absolute; inset: -40px calc(50% - 50vw);
+      z-index: -1; pointer-events: none;
+      opacity: 0.35; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.27   0 0 0 0 0.16   0 0 0 0 0.08   0 0 0 0.10 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+      background-size: 200px 200px;
+    }
+    /* Hero decorative yolks — soft blush, anchored top-right.
+       Bottom-left yolk removed (was sitting behind the CTA). */
+    .lp-hero-yolk-tr {
+      position: absolute; z-index: -1; pointer-events: none;
+      top: -80px; right: -100px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: #F5BEB6; opacity: 0.20;
+    }
+    .lp-hero-yolk-tr-in {
+      position: absolute; z-index: -1; pointer-events: none;
+      top: -10px; right: 60px;
+      width: 100px; height: 100px; border-radius: 50%;
+      background: #F5BEB6; opacity: 0.18;
+    }
+    .lp-hero-scribble {
+      position: absolute; z-index: -1; pointer-events: none;
+      top: 28px; left: 14%;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .lp-hero-scribble span {
+      display: block; height: 2px; background: rgba(122,74,40,0.18);
+      border-radius: 2px;
+    }
+    .lp-hero-scribble span:nth-child(1) { width: 22px; transform: rotate(-6deg); }
+    .lp-hero-scribble span:nth-child(2) { width: 16px; transform: rotate(2deg); margin-left: 4px; }
+    .lp-hero-scribble span:nth-child(3) { width: 18px; transform: rotate(-3deg); margin-left: 2px; }
+    @media (max-width: 800px) {
+      .lp-hero-scribble { display: none; }
+      .lp-hero-yolk-tr { width: 160px; height: 160px; top: -40px; right: -60px; }
+      .lp-hero-yolk-tr-in { width: 60px; height: 60px; }
+    }
+
+    /* Hero typography */
+    .lp-hero-eyebrow {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--walnut);
+      display: inline-flex; align-items: center; gap: var(--s-3);
+      margin-bottom: var(--s-5);
+    }
+    .lp-hero-eyebrow::before {
+      content: ""; width: 26px; height: 1px;
+      background: var(--walnut); opacity: 0.55;
+    }
+    .lp-hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(48px, 7.2vw, 88px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--cocoa);
+      margin: 0 0 var(--s-5);
+    }
+    .lp-hero-title em {
+      font-style: italic; font-weight: 600;
+      color: var(--cinnamon);
+    }
+    .lp-hero-lede {
+      font-size: 18px; line-height: 1.55;
+      color: var(--walnut);
+      max-width: 560px;
+      margin: 0 0 32px;
+    }
+    .lp-hero-ctas { display: flex; gap: var(--s-4); flex-wrap: wrap; }
+
+    /* Primary CTA — cinnamon pill */
+    .lp-btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--cinnamon); color: var(--card);
+      padding: var(--s-4) var(--s-5); border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600; font-size: 15px; letter-spacing: 0.3px;
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 16px rgba(148, 90, 65, 0.30);
+      transition: transform 180ms cubic-bezier(0.22,1,0.36,1), box-shadow 180ms ease-out;
+      text-decoration: none; border-bottom: 0;
+    }
+    .lp-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(148, 90, 65, 0.38); }
+    .lp-btn-primary:focus-visible { outline: 3px solid rgba(192,120,64,0.45); outline-offset: 3px; }
+    .lp-btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--parchment); color: var(--cocoa);
+      padding: var(--s-3) 24px; border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600; font-size: 15px; letter-spacing: 0.3px;
+      border: 1.5px solid var(--cinnamon); cursor: pointer;
+      transition: transform 180ms cubic-bezier(0.22,1,0.36,1), background 180ms ease-out;
+      text-decoration: none; border-bottom: 0;
+    }
+    .lp-btn-secondary:hover { transform: translateY(-1px); background: #DCD0B4; }
+    .lp-btn-secondary:focus-visible { outline: 3px solid rgba(192,120,64,0.45); outline-offset: 3px; }
+
+    /* Bee mascot */
+    .lp-hero-bee {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      min-height: 280px;
+    }
+    .lp-hero-bee-halo {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 55% 50%, rgba(250,208,128,0.55), transparent 65%);
+      pointer-events: none;
+    }
+    .lp-hero-bee-img {
+      position: relative; z-index: 1;
+      width: clamp(180px, 26vw, 280px); height: auto;
+      animation: lp-bee-breathe 2.6s ease-in-out infinite;
+      filter: drop-shadow(0 12px 24px rgba(107,46,14,0.18));
+    }
+    @keyframes lp-bee-breathe {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.06); }
+    }
+    @media (prefers-reduced-motion: reduce) { .lp-hero-bee-img { animation: none; } }
+
+    /* ── Section + eyebrow ── */
+    .lp-section          { padding: var(--s-8) 0; }
+    .lp-section--tight   { padding: var(--s-6) 0; }
+    .lp-section-eyebrow {
+      display: inline-flex; align-items: center; gap: var(--s-3);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--amber);
+      margin: 0 0 var(--s-4);
+    }
+    .lp-section-eyebrow::before {
+      content: ""; width: 24px; height: 1px;
+      background: currentColor; opacity: 0.55;
+    }
+    .lp-section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(32px, 4.5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--cocoa);
+      margin: 0 0 var(--s-4);
+      max-width: 720px;
+    }
+    .lp-section-title em { font-style: italic; font-weight: 600; color: var(--caramel); }
+    .lp-section-lede {
+      font-size: 17px; line-height: 1.55;
+      color: var(--walnut);
+      max-width: 640px;
+      margin: 0 0 32px;
+    }
+
+    /* ── Static bee divider (Option F) ── */
+    .lp-divider {
+      max-width: 1180px; margin: var(--s-4) auto 0;
+      padding: var(--s-3) var(--s-5) 0;
+      display: flex; align-items: center; gap: var(--s-4);
+    }
+    .lp-divider + section.lp-section { padding-top: var(--s-5); }
+    .lp-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(150,80,50,0.35), transparent);
+    }
+    .lp-divider-bee {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: url("villie-bee.png") center/contain no-repeat;
+      filter: drop-shadow(0 4px 8px rgba(107,46,14,0.18));
+    }
+
+    /* ── Page-decor yolks (blush, soft) ── */
+    .lp-yolk { position: absolute; pointer-events: none; border-radius: 50%; z-index: -1; }
+    .lp-scribble {
+      position: absolute; pointer-events: none; z-index: -1;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .lp-scribble span {
+      display: block; height: 2px; background: rgba(122,74,40,0.18); border-radius: 2px;
+    }
+    .lp-scribble span:nth-child(1) { width: 22px; transform: rotate(-6deg); }
+    .lp-scribble span:nth-child(2) { width: 16px; transform: rotate(2deg); margin-left: 4px; }
+    .lp-scribble span:nth-child(3) { width: 18px; transform: rotate(-3deg); margin-left: 2px; }
+    .lp-yolk--rooms-tr  { top: 4%;    right: -90px;  width: 200px; height: 200px; background: #F5BEB6; opacity: 0.14; }
+    .lp-yolk--rooms-bl  { top: 70%;   left: -70px;   width: 140px; height: 140px; background: #E8C4B6; opacity: 0.18; }
+    .lp-yolk--quote-tr  { top: -40px; right: -40px;  width: 280px; height: 280px; background: #F5BEB6; opacity: 0.14; }
+    .lp-yolk--quote-bl  { bottom: -60px; left: -60px; width: 180px; height: 180px; background: #D8CEB0; opacity: 0.18; }
+    .lp-yolk--wait-tr   { top: -30px; right: -50px;  width: 160px; height: 160px; background: #E8C4B6; opacity: 0.18; }
+    .lp-yolk--sms-bl    { top: -20px; left: -40px;   width: 120px; height: 120px; background: #F5BEB6; opacity: 0.10; }
+    .lp-scribble--rooms { top: 8%;  left: 2%; }
+    .lp-scribble--quote { bottom: 12%; right: 6%; }
+    @media (max-width: 800px) {
+      .lp-yolk { display: none; }
+      .lp-scribble { display: none; }
+    }
+
+    /* ── What's inside cards ── */
+    .lp-verticals {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 900px) { .lp-verticals { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .lp-verticals { grid-template-columns: 1fr; } }
+    @media (min-width: 901px) { .lp-vert.manual { grid-column: span 2; } }
+
+    .lp-vert {
+      background: #F9F2E4;          /* light tan tint */
+      border-radius: 18px;
+      padding: var(--s-5) 24px;
+      border: 1px solid rgba(150,80,50,0.18);
+      box-shadow: 0 8px 18px rgba(107,46,14,0.10);
+      transition: transform 260ms cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 260ms ease-out, border-color 260ms ease-out;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      min-height: 220px;
+    }
+    .lp-vert:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 40px rgba(107,46,14,0.20);
+      border-color: rgba(150,80,50,0.32);
+    }
+    /* Soft chapter-color halo via ::before */
+    .lp-vert::before {
+      content: ""; position: absolute; pointer-events: none;
+      top: -100px; right: -100px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle at 50% 50%, var(--vert-halo, transparent), transparent 60%);
+      opacity: 0.55;
+      transition: opacity 320ms ease-out;
+    }
+    .lp-vert:hover::before { opacity: 0.85; }
+    /* Hover arrow bottom-right; folio fades out so they share the corner */
+    .lp-vert::after {
+      content: "→";
+      position: absolute;
+      bottom: var(--s-4); right: var(--s-5);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px; line-height: 1;
+      color: var(--cinnamon);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 260ms ease-out, transform 260ms cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+    }
+    .lp-vert:hover::after { opacity: 0.85; transform: translateX(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .lp-vert { transition: none; }
+      .lp-vert::after { transition: none; }
+    }
+    .lp-vert-bar {
+      position: absolute; top: 0; left: 24px;
+      width: 36px; height: 3px; border-radius: 2px;
+      transition: width 320ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .lp-vert:hover .lp-vert-bar { width: 64px; }
+    /* Folio mark — bottom-right, fades out on hover (swaps with arrow) */
+    .lp-vert-folio {
+      position: absolute; bottom: var(--s-4); right: var(--s-5);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 13px; color: var(--amber);
+      opacity: 0.7; pointer-events: none;
+      letter-spacing: 0.02em;
+      transition: opacity 260ms ease-out;
+    }
+    .lp-vert:hover .lp-vert-folio { opacity: 0; }
+    .lp-vert-eyebrow {
+      display: inline-flex; align-items: center; gap: var(--s-2);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--amber);
+      margin: var(--s-4) 0 var(--s-3);
+    }
+    .lp-vert-eyebrow::before {
+      content: ""; width: 16px; height: 1px;
+      background: currentColor; opacity: 0.55;
+    }
+    .lp-vert-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--cocoa);
+      margin: 0 0 var(--s-3);
+    }
+    .lp-vert-title em { font-style: italic; font-weight: 600; color: var(--caramel); }
+    .lp-vert-body {
+      font-size: 14px; line-height: 1.55;
+      color: var(--walnut);
+      margin: 0; flex: 1;
+    }
+    /* Per-card halo color */
+    .lp-vert.manual      { --vert-halo: rgba(96,110,70,0.45); }
+    .lp-vert.milk        { --vert-halo: rgba(250,208,128,0.55); }
+    .lp-vert.specialists { --vert-halo: rgba(237,168,160,0.50); }
+    .lp-vert.gear        { --vert-halo: rgba(192,120,64,0.42); }
+    .lp-vert.plans       { --vert-halo: rgba(212,168,128,0.50); }
+    .lp-vert.manual      .lp-vert-bar { background: var(--pill-heal); }
+    .lp-vert.milk        .lp-vert-bar { background: var(--pill-feed); }
+    .lp-vert.specialists .lp-vert-bar { background: var(--pill-feel); }
+    .lp-vert.gear        .lp-vert-bar { background: var(--pill-tips); }
+    .lp-vert.plans       .lp-vert-bar { background: var(--pill-sleep); }
+
+    /* ── Pull quote ── */
+    .lp-pullquote {
+      padding: clamp(60px, 12vw, 140px) 0 clamp(40px, 8vw, 100px);
+      text-align: left;
+    }
+    .lp-pullquote-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(56px, 10vw, 132px);
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+      color: var(--cocoa);
+      margin: 0;
+    }
+    .lp-pullquote-text em {
+      font-style: italic; font-weight: 600;
+      color: var(--cinnamon);
+      display: inline-block; padding-left: 0.04em;
+    }
+
+    /* ── Waitlist section ── */
+    /* TODAY: card now has slightly stronger surface + tan tint so it
+       doesn't blend into the page background. */
+    .lp-waitlist {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: var(--s-7);
+      align-items: center;
+      background: #F9F2E4;                              /* tan tint — matches What's Inside cards */
+      border: 1px solid rgba(150,80,50,0.24);           /* slightly stronger border */
+      border-radius: 24px;
+      padding: var(--s-7) var(--s-7);
+      box-shadow: 0 18px 36px rgba(107,46,14,0.14);     /* deeper drop so it lifts off bg */
+      position: relative; overflow: hidden;
+    }
+    .lp-waitlist::before {
+      content: ""; position: absolute;
+      top: -120px; right: -120px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(250,208,128,0.55), transparent 60%);
+      pointer-events: none;
+    }
+    @media (max-width: 820px) {
+      .lp-waitlist { grid-template-columns: 1fr; padding: var(--s-7) var(--s-5); gap: var(--s-5); }
+    }
+    .lp-waitlist-text { position: relative; z-index: 1; }
+    .lp-waitlist-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(28px, 3.5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--cocoa);
+      margin: 0 0 var(--s-4);
+    }
+    .lp-waitlist-headline em {
+      font-style: italic; font-weight: 600;
+      color: var(--cinnamon);
+    }
+    .lp-waitlist-lede {
+      font-size: 15px; line-height: 1.55;
+      color: var(--walnut);
+      max-width: 420px;
+      margin: 0;
+    }
+
+    .lp-waitlist-form {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      gap: var(--s-4);
+    }
+    .lp-waitlist-row { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+    .lp-field {
+      display: flex; flex-direction: column;
+      gap: 6px; flex: 1; min-width: 140px;
+    }
+    .lp-field--wide { flex: 1.6; }
+    .lp-field-label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--amber);
+    }
+    .lp-field-optional { letter-spacing: 0.06em; text-transform: none; opacity: 0.7; }
+    .lp-field input[type="text"], .lp-field input[type="email"] {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px;
+      color: var(--cocoa);
+      background: var(--paper);
+      border: 1px solid rgba(150,80,50,0.22);
+      border-radius: 10px;
+      padding: var(--s-3) var(--s-4);
+      transition: border-color 180ms ease-out, box-shadow 180ms ease-out;
+    }
+    .lp-field input:focus {
+      outline: none; border-color: var(--cinnamon);
+      box-shadow: 0 0 0 3px rgba(192,120,64,0.18);
+    }
+    .lp-field input::placeholder { color: var(--amber); opacity: 0.5; }
+
+    .lp-stage-fieldset { border: 0; padding: 0; margin: 0; }
+    .lp-stage-fieldset legend { padding: 0; margin-bottom: var(--s-2); }
+    .lp-stage-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .lp-chip { display: inline-flex; align-items: center; cursor: pointer; }
+    .lp-chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .lp-chip span {
+      display: inline-block;
+      padding: 7px var(--s-3);
+      border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      color: var(--walnut);
+      background: var(--paper);
+      border: 1px solid rgba(150,80,50,0.22);
+      transition: background 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out;
+    }
+    .lp-chip:hover span { border-color: var(--cinnamon); }
+    /* TODAY: softened selected state. Was parchment fill + cinnamon border
+       which read too heavy. Now: subtle blush-tinted fill + cinnamon border
+       + cocoa text, slightly weighted. */
+    .lp-chip input:checked + span {
+      background: rgba(245,190,182,0.30);
+      border-color: var(--cinnamon);
+      color: var(--cocoa);
+      font-weight: 600;
+    }
+    .lp-chip input:focus-visible + span { box-shadow: 0 0 0 3px rgba(192,120,64,0.30); }
+
+    .lp-field--zip { max-width: 240px; }
+    .lp-field--zip input { letter-spacing: 0.04em; }
+
+    .lp-waitlist-submit {
+      display: flex; flex-direction: column;
+      gap: var(--s-3); margin-top: var(--s-2);
+    }
+    .lp-waitlist-submit .lp-btn-primary { align-self: flex-start; padding: var(--s-4) var(--s-6); }
+    .lp-btn-loading { opacity: 0.85; }
+    .lp-waitlist-micro {
+      font-size: 12px; line-height: 1.55;
+      color: var(--walnut);
+      max-width: 420px;
+      margin: 0;
+    }
+    .lp-waitlist-micro a { color: var(--cinnamon); }
+
+    .lp-waitlist-success {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: var(--s-7) 0;
+      position: relative; z-index: 1;
+    }
+    .lp-waitlist-success .lp-section-eyebrow { justify-content: center; }
+    .lp-waitlist-success .lp-waitlist-headline { margin-left: auto; margin-right: auto; }
+    .lp-waitlist-success .lp-waitlist-lede { margin-left: auto; margin-right: auto; }
+
+    /* ── For hospitals inline insert ── */
+    .lp-inline-insert {
+      display: flex; align-items: center; gap: var(--s-7);
+      padding: var(--s-5) 0;
+      border-top: 1px solid rgba(150,80,50,0.18);
+      border-bottom: 1px solid rgba(150,80,50,0.18);
+    }
+    @media (max-width: 800px) {
+      .lp-inline-insert { flex-direction: column; align-items: flex-start; gap: var(--s-4); }
+    }
+    .lp-inline-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(22px, 2.6vw, 28px);
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--cocoa);
+      margin: 0 0 var(--s-3);
+    }
+    .lp-inline-title em { font-style: italic; font-weight: 600; color: var(--cinnamon); }
+    .lp-inline-body {
+      font-size: 15px; line-height: 1.55;
+      color: var(--walnut);
+      margin: 0; max-width: 560px;
+    }
+    .lp-inline-cta { flex-shrink: 0; }
+
+    /* ── SMS one-liner ── */
+    .lp-sms-line {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s-3);
+      font-size: 13px; line-height: 1.55;
+      color: var(--walnut);
+      padding: var(--s-4) 0;
+      border-top: 1px solid rgba(150,80,50,0.14);
+      margin: 0;
+    }
+    .lp-sms-label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--amber);
+      flex-shrink: 0;
+    }
+    .lp-sms-line em { font-style: italic; color: var(--cocoa); }
+    .lp-sms-more { color: var(--cinnamon); white-space: nowrap; }
+
+    /* ── Header nav ── */
+    body header.site nav { gap: 22px; }
+  </style>
 </head>
 <body>
   <header class="site">
     <div class="inner">
       <a href="index.html" class="brand brand-villie" aria-label="villie home"><img src="villie-wordmark.png" alt="villie" /></a>
       <nav>
-        <a href="index.html" class="active">Home</a>
+        <a href="index.html" class="active" aria-current="page">Home</a>
+        <a href="onboard/index.html">For specialists</a>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="contact.html">Contact</a>
@@ -23,57 +614,251 @@
     </div>
   </header>
 
-  <main>
-    <h1>A village for every mom.</h1>
-    <p class="lede">villie is a mobile app for expecting and postpartum families — a clinician-aware companion for the first year of motherhood. Find vetted specialists, connect with peer breast-milk donors, join private support rooms, browse safety-checked baby gear, and track your baby's milestones week by week.</p>
+  <main class="lp">
+    <span class="lp-bg-bee lp-bg-bee--1" aria-hidden="true"></span>
+    <span class="lp-bg-bee lp-bg-bee--2" aria-hidden="true"></span>
 
-    <div class="callout">
-      <strong>Not medical advice.</strong> villie provides information, peer connection, and tools. It does not replace professional medical care. If you are experiencing a medical emergency, call 911. If you are in mental-health crisis, dial 988 (Suicide &amp; Crisis Lifeline) or text HOME to 741741 (Crisis Text Line). Postpartum Support International: 1-800-944-4773.
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="lp-hero" aria-labelledby="lp-hero-title">
+      <div class="lp-hero-yolk-tr" aria-hidden="true"></div>
+      <div class="lp-hero-yolk-tr-in" aria-hidden="true"></div>
+      <div class="lp-hero-scribble" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="lp-hero-text">
+        <div class="lp-hero-eyebrow">peer postpartum support · Miami</div>
+        <h1 id="lp-hero-title" class="lp-hero-title">A village for every <em>mom.</em></h1>
+        <p class="lp-hero-lede">A warm companion for the postpartum window. Calm by day, awake with you at 3 a.m. The manual for week one through year one, peer milk-sharing, vetted specialists, safety-checked secondhand gear, and real-world plans nearby: stroller walks, yoga, sensory play, popups.</p>
+        <div class="lp-hero-ctas">
+          <a href="#waitlist" class="lp-btn-primary" aria-label="Join the villie waitlist">Join the waitlist</a>
+        </div>
+      </div>
+      <div class="lp-hero-bee" aria-hidden="true">
+        <div class="lp-hero-bee-halo"></div>
+        <img src="villie-bee.png" alt="" class="lp-hero-bee-img" />
+      </div>
+    </section>
+
+    <!-- ═══════════ BEE DIVIDER ═══════════ -->
+    <div class="lp-divider" aria-hidden="true">
+      <span class="lp-divider-line"></span>
+      <span class="lp-divider-bee" role="img" aria-label="villie"></span>
+      <span class="lp-divider-line"></span>
     </div>
 
-    <h2>What's inside</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Find specialists</h3>
-        <p>OB/GYN, doulas, midwives, lactation consultants, pediatricians, sleep coaches, pelvic-floor PTs, perinatal dietitians, PPD therapists. Filter by your insurance and search radius.</p>
-      </div>
-      <div class="card">
-        <h3>Milk Connect</h3>
-        <p>A peer-to-peer breast-milk donor marketplace. Verified profiles, voluntary trust badges, informed-consent gates. Not a regulated milk bank — see Terms.</p>
-      </div>
-      <div class="card">
-        <h3>Support rooms</h3>
-        <p>Stage-matched private chat rooms with optional anonymous mode. AI-assisted moderation flags crisis content and routes to trained moderators.</p>
-      </div>
-      <div class="card">
-        <h3>Gear &amp; home</h3>
-        <p>A used-baby-gear marketplace with built-in CPSC recall checks and barcode lookup. Weekly milestones, daily check-ins, and curated brand perks.</p>
-      </div>
-    </div>
+    <!-- ═══════════ WHAT'S INSIDE ═══════════ -->
+    <section class="lp-section" aria-labelledby="lp-inside-title" style="position:relative;">
+      <span class="lp-yolk lp-yolk--rooms-tr" aria-hidden="true"></span>
+      <span class="lp-yolk lp-yolk--rooms-bl" aria-hidden="true"></span>
+      <span class="lp-scribble lp-scribble--rooms" aria-hidden="true"><span></span><span></span><span></span></span>
+      <p class="lp-section-eyebrow">what's inside</p>
+      <h2 id="lp-inside-title" class="lp-section-title">Five rooms in the same <em>house.</em></h2>
+      <p class="lp-section-lede">Every part of villie is built for the postpartum window: small doses, low cognitive load, no clinical jargon. Tap the door you need today.</p>
 
-    <h2>SMS communications</h2>
-    <p>villie sends optional SMS notifications. <strong>You opt in per category</strong> in the app under <em>Me &rarr; Notification Preferences</em>. You can opt out of any category at any time, or reply <strong>STOP</strong> to any SMS to opt out of all messaging from us. Reply <strong>HELP</strong> for assistance. Message and data rates from your carrier may apply.</p>
-    <p>SMS categories include: appointment reminders for clinical bookings, postpartum daily check-in reminders (opt-in), peer milk-match notifications, and crisis-resource referrals when our AI detects safety concerns in support-room messages. Promotional SMS is opt-in only and disabled by default.</p>
-    <p>For our full SMS data practices, see the <a href="privacy.html#sms">SMS section of our Privacy Policy</a>.</p>
+      <div class="lp-verticals">
+        <article class="lp-vert manual">
+          <span class="lp-vert-bar" aria-hidden="true"></span>
+          <p class="lp-vert-eyebrow">the field guide</p>
+          <h3 class="lp-vert-title">The <em>manual.</em></h3>
+          <p class="lp-vert-body">Short chapters from week one through month twelve. Feel, heal, nourish, rest, tips. For mom and baby. Real-world, hand-edited, no medical advice. The heart of villie.</p>
+          <span class="lp-vert-folio" aria-hidden="true">p. 01</span>
+        </article>
 
-    <h2>Hospital partnerships</h2>
-    <p>villie is being offered to hospitals to bundle into mom-and-baby discharge packets. Postpartum 0&ndash;6 weeks is our primary care window, and our content is written to clinician-handoff standards. <a href="contact.html">Reach out</a> if you represent a hospital, OB practice, or birth center.</p>
+        <article class="lp-vert milk">
+          <span class="lp-vert-bar" aria-hidden="true"></span>
+          <p class="lp-vert-eyebrow">peer-to-peer</p>
+          <h3 class="lp-vert-title">Milk <em>Connect.</em></h3>
+          <p class="lp-vert-body">A peer breast-milk donor marketplace. Verified profiles, voluntary trust badges, informed-consent gates. Not a regulated milk bank (see Terms).</p>
+          <span class="lp-vert-folio" aria-hidden="true">p. 02</span>
+        </article>
 
-    <h2>Built with care</h2>
-    <p>villie is independently operated and free for families. We do not sell your personal information. We are not a HIPAA-covered entity, but we apply HIPAA-aligned controls to all health-adjacent data: row-level security on every database table, encryption at rest and in transit, and minimum-necessary access. See the <a href="privacy.html">Privacy Policy</a> for specifics.</p>
+        <article class="lp-vert specialists">
+          <span class="lp-vert-bar" aria-hidden="true"></span>
+          <p class="lp-vert-eyebrow">the directory</p>
+          <h3 class="lp-vert-title">Find <em>specialists.</em></h3>
+          <p class="lp-vert-body">OB/GYN, doulas, midwives, lactation, pediatrics, sleep coaches, pelvic-floor PTs, dietitians, PPD therapists. Filter by your insurance and search radius.</p>
+          <span class="lp-vert-folio" aria-hidden="true">p. 03</span>
+        </article>
 
-    <p style="margin-top: 40px;"><a href="contact.html">Contact us</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a></p>
+        <article class="lp-vert gear">
+          <span class="lp-vert-bar" aria-hidden="true"></span>
+          <p class="lp-vert-eyebrow">secondhand market</p>
+          <h3 class="lp-vert-title">Baby <em>gear.</em></h3>
+          <p class="lp-vert-body">A used-baby-gear marketplace with built-in CPSC recall checks and barcode lookup. Buy local, sell what your toddler outgrew, skip the landfill. Open to moms at every stage.</p>
+          <span class="lp-vert-folio" aria-hidden="true">p. 04</span>
+        </article>
+
+        <article class="lp-vert plans">
+          <span class="lp-vert-bar" aria-hidden="true"></span>
+          <p class="lp-vert-eyebrow">nearby + together</p>
+          <h3 class="lp-vert-title">villie <em>plans.</em></h3>
+          <p class="lp-vert-body">Real-world meetups built for postpartum tempo. Stroller walks, postpartum yoga, sensory-play classes, brand popups, curated near you, easy to RSVP, no overdoing it.</p>
+          <span class="lp-vert-folio" aria-hidden="true">p. 05</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══════════ TYPOGRAPHIC PULL QUOTE ═══════════ -->
+    <section class="lp-pullquote" aria-hidden="true" style="position:relative;">
+      <span class="lp-yolk lp-yolk--quote-tr" aria-hidden="true"></span>
+      <span class="lp-yolk lp-yolk--quote-bl" aria-hidden="true"></span>
+      <span class="lp-scribble lp-scribble--quote" aria-hidden="true"><span></span><span></span><span></span></span>
+      <p class="lp-pullquote-text">It takes a <em>village.</em></p>
+    </section>
+
+    <!-- ═══════════ JOIN VILLIE · WAITLIST ═══════════ -->
+    <section id="waitlist" class="lp-section" aria-labelledby="lp-waitlist-title" style="position:relative;">
+      <span class="lp-yolk lp-yolk--wait-tr" aria-hidden="true"></span>
+      <div class="lp-waitlist">
+        <div class="lp-waitlist-text">
+          <p class="lp-section-eyebrow">join villie</p>
+          <h2 id="lp-waitlist-title" class="lp-waitlist-headline">
+            It takes a village.<br>
+            We built the app.<br>
+            <em>Join villie.</em>
+          </h2>
+          <p class="lp-waitlist-lede">Drop your name and we'll text you the moment the app opens in your zip. No spam, no sharing, you can opt out with a single STOP.</p>
+        </div>
+
+        <form class="lp-waitlist-form" id="lp-waitlist-form" novalidate
+              method="POST" action="https://formspree.io/f/REPLACE_ME">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"
+                 style="position:absolute;left:-9999px;opacity:0;">
+
+          <div class="lp-waitlist-row">
+            <label class="lp-field">
+              <span class="lp-field-label">First name</span>
+              <input type="text" name="first_name" required autocomplete="given-name" placeholder="Maya" maxlength="40">
+            </label>
+            <label class="lp-field lp-field--wide">
+              <span class="lp-field-label">Email</span>
+              <input type="email" name="email" required autocomplete="email" placeholder="you@village.com" maxlength="120">
+            </label>
+          </div>
+
+          <fieldset class="lp-stage-fieldset">
+            <legend class="lp-field-label">Where are you in your journey? <span class="lp-field-optional">(optional)</span></legend>
+            <div class="lp-stage-chips" role="radiogroup">
+              <label class="lp-chip"><input type="radio" name="stage" value="trying"><span>Trying</span></label>
+              <label class="lp-chip"><input type="radio" name="stage" value="pregnant"><span>Pregnant</span></label>
+              <label class="lp-chip"><input type="radio" name="stage" value="postpartum_0_6"><span>0–6 months</span></label>
+              <label class="lp-chip"><input type="radio" name="stage" value="postpartum_6_12"><span>6–12 months</span></label>
+              <label class="lp-chip"><input type="radio" name="stage" value="postpartum_1y"><span>1 year+</span></label>
+            </div>
+          </fieldset>
+
+          <label class="lp-field lp-field--zip">
+            <span class="lp-field-label">Zip code <span class="lp-field-optional">(so we know where to open first)</span></span>
+            <input type="text" name="zip" inputmode="numeric" pattern="[0-9]{5}" placeholder="33133" maxlength="5">
+          </label>
+
+          <div class="lp-waitlist-submit">
+            <button type="submit" class="lp-btn-primary" aria-label="Join the villie waitlist">
+              <span class="lp-btn-default">Join the waitlist</span>
+              <span class="lp-btn-loading" hidden>Saving you a spot…</span>
+            </button>
+            <p class="lp-waitlist-micro">One week free, then a small subscription. Peer milk-sharing stays free for everyone, always. By joining, you agree to receive launch SMS + email; opt out anytime. We never sell your info. See <a href="privacy.html">privacy</a>.</p>
+          </div>
+        </form>
+
+        <div class="lp-waitlist-success" id="lp-waitlist-success" hidden>
+          <p class="lp-section-eyebrow">you're in</p>
+          <h2 class="lp-waitlist-headline">Welcome to the <em>village.</em></h2>
+          <p class="lp-waitlist-lede">We saved you a spot. We'll text the moment villie opens in your area. While you wait, the bee is breathing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ FOR HOSPITALS — single-purpose tight insert ═══════════ -->
+    <section class="lp-section lp-section--tight" aria-labelledby="lp-hosp-title">
+      <div class="lp-inline-insert">
+        <div>
+          <p class="lp-section-eyebrow">for hospitals + birth centers</p>
+          <h2 id="lp-hosp-title" class="lp-inline-title">Bundle villie into <em>discharge.</em></h2>
+          <p class="lp-inline-body">Months 0–12 is the manual's core care window, written to clinician-handoff standards. Partner with us to hand villie to the mom on her way out the door, so the village starts day one.</p>
+        </div>
+        <a href="contact.html?subject=hospital" class="lp-btn-secondary lp-inline-cta">Partner with us</a>
+      </div>
+    </section>
+
+    <!-- ═══════════ SMS COMPLIANCE — compact one-liner ═══════════ -->
+    <section class="lp-section lp-section--tight" aria-labelledby="lp-sms-title" style="position:relative;">
+      <span class="lp-yolk lp-yolk--sms-bl" aria-hidden="true"></span>
+      <p class="lp-sms-line">
+        <span class="lp-sms-label">SMS</span>
+        <span id="lp-sms-title">Texts are opt-in per category in <em>Me &rarr; Notification Preferences.</em> Reply STOP to opt out, HELP for help. Standard message + data rates apply.</span>
+        <a href="privacy.html#sms" class="lp-sms-more">Full SMS policy &rarr;</a>
+      </p>
+    </section>
   </main>
 
   <footer class="site">
     <div class="inner">
-      <span>&copy; 2026 villie. All rights reserved.</span>
       <span>
+        <a href="index.html" class="lp-footer-mark" aria-label="villie home"><img src="villie-wordmark.png" alt="villie"></a>
+        &copy; 2026. All rights reserved.
+      </span>
+      <span>
+        <a href="onboard/index.html">For specialists</a> &middot;
         <a href="privacy.html">Privacy</a> &middot;
         <a href="terms.html">Terms</a> &middot;
         <a href="contact.html">Contact</a>
       </span>
     </div>
   </footer>
+
+  <script>
+    // Waitlist submit — dry-run when action= contains REPLACE_ME.
+    (function () {
+      var form = document.getElementById('lp-waitlist-form');
+      var success = document.getElementById('lp-waitlist-success');
+      if (!form || !success) return;
+      var defaultLabel = form.querySelector('.lp-btn-default');
+      var loadingLabel = form.querySelector('.lp-btn-loading');
+      var submitBtn = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (form.elements['_gotcha'] && form.elements['_gotcha'].value) { revealSuccess(); return; }
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        submitBtn.disabled = true;
+        if (defaultLabel) defaultLabel.hidden = true;
+        if (loadingLabel) loadingLabel.hidden = false;
+
+        var data = new FormData(form);
+        var endpoint = form.getAttribute('action');
+        var isPlaceholder = !endpoint || /REPLACE_ME/.test(endpoint);
+
+        if (isPlaceholder) {
+          var preview = {};
+          data.forEach(function (v, k) { preview[k] = v; });
+          console.info('[waitlist] dry-run (no endpoint wired):', preview);
+          setTimeout(revealSuccess, 600);
+          return;
+        }
+
+        fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+          .then(function (res) { if (res.ok) revealSuccess(); else throw new Error('submit-failed'); })
+          .catch(function () {
+            submitBtn.disabled = false;
+            if (defaultLabel) defaultLabel.hidden = false;
+            if (loadingLabel) loadingLabel.hidden = true;
+            var existing = form.querySelector('.lp-waitlist-error');
+            if (!existing) {
+              var err = document.createElement('p');
+              err.className = 'lp-waitlist-micro lp-waitlist-error';
+              err.style.color = '#A03A2A';
+              err.textContent = "Couldn't save your spot. Check your connection and try again, or email hello@villieapp.com.";
+              form.querySelector('.lp-waitlist-submit').appendChild(err);
+            }
+          });
+      });
+
+      function revealSuccess() {
+        form.hidden = true;
+        success.hidden = false;
+        success.setAttribute('tabindex', '-1');
+        success.focus({ preventScroll: false });
+      }
+    })();
+  </script>
 </body>
 </html>
