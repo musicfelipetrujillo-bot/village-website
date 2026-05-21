@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>villie · The Manual</title>
+  <meta name="description" content="Short 2-minute videos for tired parents — peer-tested, clinician-handoff grade. Watch in the villie app." />
+  <meta name="theme-color" content="#F4ECD8" />
+
+  <!-- Open Graph (static for V1; per-video previews need an edge function
+       that renders this HTML server-side — flagged as follow-up).  -->
+  <meta property="og:title" content="villie · The Manual" />
+  <meta property="og:description" content="Short videos for tired parents. Two minutes or less. Real, useful, sleep-deprivation-proof." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://villieapp.com/villie-wordmark.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="villie · The Manual" />
+  <meta name="twitter:description" content="Short videos for tired parents." />
+  <meta name="twitter:image" content="https://villieapp.com/villie-wordmark.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Brand-aligned tokens copied from styles.css for self-containment.
+       This page lives at /m/ and we keep it standalone so a broken
+       sibling stylesheet can't 404 it. */
+    :root {
+      --cream:     #F4ECD8;
+      --paper:     #FDFBF6;
+      --parchment: #EAE0C8;
+      --card:      #FEFAF6;
+      --butter:    #FAD080;
+      --cinnamon:  #C07840;
+      --cinnamon-dk: #9F5F30;
+      --caramel:   #D4A880;
+      --cocoa:     #3D1F0E;
+      --walnut:    #7A4A28;
+      --amber:     #A77349;
+      --border:    #E5DBC4;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--cream); color: var(--cocoa);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px; line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--cinnamon); text-decoration: none; }
+    a:hover { color: var(--cinnamon-dk); }
+
+    .wrap {
+      max-width: 580px; margin: 0 auto; padding: 32px 22px 64px;
+    }
+
+    /* Top brand row — minimal wordmark only. Matches the app's restrained
+       header weight. */
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .brand-mark {
+      font-family: 'Caprasimo', serif;
+      font-size: 26px; color: var(--cocoa); letter-spacing: -0.5px;
+    }
+    .brand-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--amber); letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    /* Thumbnail block. 16:9 with the duration badge bottom-right, identical
+       shape to the in-app card so the share feels like a real preview. */
+    .thumb-wrap {
+      position: relative;
+      width: 100%; aspect-ratio: 16/9;
+      border-radius: 14px; overflow: hidden;
+      background: #1a1a1a;
+      box-shadow: 0 6px 18px rgba(61,31,14,0.10);
+      margin-bottom: 20px;
+    }
+    .thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .duration {
+      position: absolute; right: 10px; bottom: 10px;
+      background: rgba(0,0,0,0.72); color: var(--paper);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+      padding: 4px 8px; border-radius: 6px;
+    }
+    /* Loading skeleton uses the same shape so layout doesn't shift when
+       metadata arrives. */
+    .thumb-skel {
+      background: linear-gradient(110deg, var(--parchment) 30%, var(--paper) 50%, var(--parchment) 70%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--amber); letter-spacing: 0.22em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    h1.title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700; font-size: 30px; line-height: 1.15;
+      color: var(--cocoa); margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+    p.description {
+      font-size: 15px; line-height: 1.6;
+      color: var(--walnut); margin: 0 0 28px;
+    }
+
+    /* "Open in villie" — primary cinnamon pill. Tap on iOS will attempt
+       the universal-link deep-link (when configured) and otherwise route
+       to the App Store. */
+    .cta-primary {
+      display: block; width: 100%; padding: 16px 20px;
+      background: var(--cinnamon); color: var(--paper);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+      text-align: center; border-radius: 999px;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: background 0.18s ease;
+    }
+    .cta-primary:hover { background: var(--cinnamon-dk); color: var(--paper); }
+    .cta-primary:active { transform: translateY(1px); }
+
+    /* "Get the app" — secondary, lower weight. */
+    .cta-secondary {
+      display: block; width: 100%; padding: 14px 20px;
+      background: transparent; color: var(--cocoa);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600; font-size: 14px;
+      text-align: center; border-radius: 999px;
+      border: 1.5px solid var(--border); cursor: pointer; text-decoration: none;
+      margin-top: 10px;
+    }
+    .cta-secondary:hover { background: var(--paper); }
+
+    .hint {
+      font-size: 12px; color: var(--amber); text-align: center;
+      margin-top: 14px; line-height: 1.5;
+    }
+
+    /* Error state — keeps brand tone, doesn't read alarmist. */
+    .error-box {
+      padding: 22px; background: var(--paper);
+      border: 1px solid var(--border); border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    .error-box h2 {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      margin: 0 0 6px; color: var(--cocoa);
+    }
+    .error-box p { margin: 0; font-size: 14px; color: var(--walnut); }
+
+    .footer {
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center; font-size: 12px; color: var(--amber);
+    }
+    .footer a {
+      color: var(--cocoa); font-weight: 500; text-decoration: underline;
+      text-decoration-color: var(--caramel); text-underline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <span class="brand-mark">villie</span>
+      <span class="brand-eyebrow">The Manual</span>
+    </div>
+
+    <!-- Mounted by script.js. The skeleton thumbnail keeps the layout from
+         jumping when metadata arrives ~150ms after first paint. -->
+    <div id="root">
+      <div class="thumb-wrap thumb-skel" id="thumb">
+        <span class="duration" id="duration" style="display:none"></span>
+      </div>
+      <div class="eyebrow" id="eyebrow"></div>
+      <h1 class="title" id="title">&nbsp;</h1>
+      <p class="description" id="description"></p>
+
+      <a class="cta-primary" id="cta-open" href="#" style="display:none">Open in villie</a>
+      <a class="cta-secondary" id="cta-app" href="#" style="display:none">Get the app</a>
+      <div class="hint" id="hint" style="display:none">
+        The full library is in the villie app. New videos drop weekly.
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="/">villieapp.com</a>
+      &nbsp;·&nbsp; A village for every mom.
+    </div>
+  </div>
+
+  <script>
+    // ─── Supabase anon-callable RPC ───
+    // The anon key is intentionally public; RLS + the RPC's review_status
+    // gate restrict what it can read. This page reads ONE public field per
+    // video; no per-user state is ever exposed to anon.
+    const SUPABASE_URL = 'https://albyndcruwopulazvpjs.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsYnluZGNydXdvcHVsYXp2cGpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MjcwNjgsImV4cCI6MjA5MjIwMzA2OH0.VVeWWDdgMhPQRrpNDc3X9GszEv3GGxdeKnJpQyVK2fY';
+
+    function getVideoId() {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('v');
+      // Loose UUID shape check — keeps obviously malformed values from
+      // hitting the RPC and getting a "not found" response that's
+      // indistinguishable from a real missing-row case.
+      if (!v || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v)) {
+        return null;
+      }
+      return v;
+    }
+
+    function formatDuration(s) {
+      s = Math.max(0, Math.floor(s || 0));
+      const m = Math.floor(s / 60);
+      const r = s % 60;
+      return m + ':' + String(r).padStart(2, '0');
+    }
+
+    function showError(title, body) {
+      const root = document.getElementById('root');
+      root.innerHTML =
+        '<div class="error-box">' +
+          '<h2>' + title + '</h2>' +
+          '<p>' + body + '</p>' +
+        '</div>' +
+        '<a class="cta-primary" href="/">Visit villieapp.com</a>';
+    }
+
+    async function fetchVideoMeta(id) {
+      const url = SUPABASE_URL + '/rest/v1/rpc/get_manual_video_share_meta';
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({ p_video_id: id }),
+      });
+      if (!res.ok) {
+        throw new Error('Request failed: ' + res.status);
+      }
+      const rows = await res.json();
+      return Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+    }
+
+    function buildCtaUrls(videoId) {
+      // Deep link into the app via custom URL scheme (works on iOS once
+      // Associated Domains is configured; for now we still fall through
+      // to App Store if the scheme handler isn't installed).
+      const deepLink = 'villie://manual/v/' + videoId;
+      // App Store fallback. Update to the real App Store ID once we have one.
+      const appStore = 'https://apps.apple.com/app/villie';
+      return { deepLink, appStore };
+    }
+
+    async function main() {
+      const id = getVideoId();
+      if (!id) {
+        showError('Video not found', 'This share link is missing or malformed. Visit villie to browse the full Manual.');
+        return;
+      }
+
+      let meta;
+      try {
+        meta = await fetchVideoMeta(id);
+      } catch (e) {
+        showError('Couldn’t load this video', 'Please check your connection and try again, or open villie directly.');
+        return;
+      }
+
+      if (!meta) {
+        showError('Video unavailable', 'This video is either pending review or no longer available. The full Manual is in the villie app.');
+        return;
+      }
+
+      // Update document title + meta tags so OG previews mid-fetch are
+      // slightly better than the static fallback. Real crawlers won't
+      // wait for JS, so this only helps users who tap the share link.
+      document.title = 'villie · ' + meta.title;
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc && meta.description) desc.setAttribute('content', meta.description);
+
+      // Thumbnail
+      const thumb = document.getElementById('thumb');
+      thumb.classList.remove('thumb-skel');
+      if (meta.thumbnail_url) {
+        const img = document.createElement('img');
+        img.src = meta.thumbnail_url;
+        img.alt = meta.title;
+        thumb.insertBefore(img, thumb.firstChild);
+      }
+      const dur = document.getElementById('duration');
+      dur.textContent = formatDuration(meta.duration_seconds);
+      dur.style.display = '';
+
+      // Text
+      document.getElementById('eyebrow').textContent =
+        (meta.audience === 'mom' ? 'FOR MOM' : 'FOR BABY') +
+        '  ·  ' +
+        String(meta.category || '').toUpperCase();
+      document.getElementById('title').textContent = meta.title;
+      document.getElementById('description').textContent = meta.description || '';
+
+      // CTAs
+      const { deepLink, appStore } = buildCtaUrls(id);
+      const open = document.getElementById('cta-open');
+      const get  = document.getElementById('cta-app');
+      open.href = deepLink;
+      open.style.display = '';
+      get.href = appStore;
+      get.textContent = 'Get the villie app';
+      get.style.display = '';
+      document.getElementById('hint').style.display = '';
+    }
+
+    main();
+  </script>
+</body>
+</html>
