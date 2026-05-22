@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["B9BRJPBM6G.com.villieapp.mobile"],
+        "components": [
+          { "/": "/m/*",        "comment": "Manual video share landing — opens ManualVideoScreen" },
+          { "/": "/manual/v/*", "comment": "Legacy path-style Manual video URL" }
+        ]
+      }
+    ]
+  }
+}
