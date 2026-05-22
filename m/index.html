@@ -210,15 +210,22 @@
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsYnluZGNydXdvcHVsYXp2cGpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MjcwNjgsImV4cCI6MjA5MjIwMzA2OH0.VVeWWDdgMhPQRrpNDc3X9GszEv3GGxdeKnJpQyVK2fY';
 
     function getVideoId() {
+      // Accept any of these shapes (in order of priority):
+      //   /m/?v=<uuid>        — canonical (current mobile share URL)
+      //   /m/?id=<uuid>       — forgiving alias
+      //   /manual/v/<uuid>    — path-style URL (the original share-URL
+      //                          shape we shipped in an earlier mobile
+      //                          build; any old shares pasted around
+      //                          still land somewhere sane)
+      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
       const params = new URLSearchParams(window.location.search);
-      const v = params.get('v');
-      // Loose UUID shape check — keeps obviously malformed values from
-      // hitting the RPC and getting a "not found" response that's
-      // indistinguishable from a real missing-row case.
-      if (!v || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v)) {
-        return null;
-      }
-      return v;
+      const fromQuery = params.get('v') || params.get('id');
+      if (fromQuery && UUID_RE.test(fromQuery)) return fromQuery;
+
+      const m = window.location.pathname.match(/\/manual\/v\/([0-9a-f-]+)/i);
+      if (m && UUID_RE.test(m[1])) return m[1];
+
+      return null;
     }
 
     function formatDuration(s) {
