@@ -165,6 +165,45 @@
       font-weight: 600;
     }
 
+    /* Primary "Open villie" CTA — tries the custom URL scheme first; on
+       iPhone w/ villie installed it launches the app. On desktop or no-app
+       it just no-ops; the steps card above already tells the user the
+       fallback (open the app manually). */
+    .confirm-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-2);
+      min-width: 260px;
+      padding: 16px 28px;
+      background: var(--cinnamon);
+      color: var(--card);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      border-radius: 999px;
+      box-shadow: 0 10px 24px -8px rgba(192, 120, 64, 0.45);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      margin-bottom: var(--s-5);
+    }
+    .confirm-cta:hover {
+      background: var(--cinnamon-dk);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px -10px rgba(192, 120, 64, 0.55);
+    }
+    .confirm-cta:active {
+      transform: translateY(0);
+    }
+    .confirm-cta svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+    }
+
     .confirm-note {
       max-width: 440px;
       font-size: 13.5px;
@@ -232,8 +271,15 @@
       with the email and password you just used.
     </p>
 
+    <a class="confirm-cta" href="com.villieapp.mobile://" aria-label="Open villie on your phone">
+      Take me to villie
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
     <div class="confirm-steps">
-      <div class="confirm-steps-eyebrow">NEXT STEP</div>
+      <div class="confirm-steps-eyebrow">IF THE BUTTON DOESN'T OPEN THE APP</div>
       <ol>
         <li>Open <strong>villie</strong> on your phone</li>
         <li>Tap <strong>Sign in</strong> at the bottom of the welcome screen</li>
