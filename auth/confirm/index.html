@@ -8,6 +8,22 @@
   <meta name="theme-color" content="#F4ECD8" />
   <meta name="robots" content="noindex" />
 
+  <!-- Language: page renders EN by default, swaps to ES when the browser's
+       primary language is Spanish or when ?lang=es is on the URL. Pure
+       client-side — keeps the page a single static file and avoids needing
+       /auth/confirm/es/. Server doesn't need Accept-Language routing. -->
+  <script>
+    (function () {
+      try {
+        var qs = new URLSearchParams(window.location.search);
+        var qsLang = qs.get('lang');
+        var navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+        var isEs = qsLang === 'es' || (!qsLang && navLang.indexOf('es') === 0);
+        if (isEs) document.documentElement.lang = 'es';
+      } catch (_) { /* default to EN */ }
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -217,6 +233,16 @@
       text-underline-offset: 2px;
     }
 
+    /* Language swap — show the pair matching the resolved html[lang].
+       Default page renders EN; JS at top of <head> may set lang="es"
+       before paint so the right copy lands without a flash. */
+    .lang-es { display: none; }
+    html[lang="es"] .lang-en { display: none; }
+    html[lang="es"] .lang-es { display: inline; }
+    html[lang="es"] .lang-es-block { display: block; }
+    /* For <li> + ordered list items we need the right display value */
+    html[lang="es"] li.lang-es { display: list-item; }
+
     /* Footer matches the rest of the site */
     footer.site {
       padding: var(--s-7) var(--s-5) var(--s-6);
@@ -248,10 +274,10 @@
         <img src="/villie-wordmark.png" alt="villie" />
       </a>
       <nav>
-        <a href="/">Home</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/contact.html">Contact</a>
+        <a href="/"><span class="lang-en">Home</span><span class="lang-es">Inicio</span></a>
+        <a href="/privacy.html"><span class="lang-en">Privacy</span><span class="lang-es">Privacidad</span></a>
+        <a href="/terms.html"><span class="lang-en">Terms</span><span class="lang-es">Términos</span></a>
+        <a href="/contact.html"><span class="lang-en">Contact</span><span class="lang-es">Contacto</span></a>
       </nav>
     </div>
   </header>
@@ -263,44 +289,72 @@
       <img src="/villie-bee.png" alt="" aria-hidden="true" />
     </div>
 
-    <div class="confirm-eyebrow">EMAIL CONFIRMED</div>
-    <h1 class="confirm-title">You're <em>in.</em></h1>
+    <div class="confirm-eyebrow">
+      <span class="lang-en">EMAIL CONFIRMED</span>
+      <span class="lang-es">CORREO CONFIRMADO</span>
+    </div>
+    <h1 class="confirm-title">
+      <span class="lang-en">You're <em>in.</em></span>
+      <span class="lang-es">Ya estás <em>dentro.</em></span>
+    </h1>
 
     <p class="confirm-lede">
-      Your villie account is ready. Open the app on your phone and sign in
-      with the email and password you just used.
+      <span class="lang-en">
+        Your villie account is ready. Open the app on your phone and sign in
+        with the email and password you just used.
+      </span>
+      <span class="lang-es">
+        Tu cuenta de villie está lista. Abre la app en tu teléfono e inicia sesión
+        con el correo y la contraseña que acabas de usar.
+      </span>
     </p>
 
-    <a class="confirm-cta" href="com.villieapp.mobile://" aria-label="Open villie on your phone">
-      Take me to villie
+    <a class="confirm-cta" href="com.villieapp.mobile://" aria-label="Open villie">
+      <span class="lang-en">Take me to villie</span>
+      <span class="lang-es">Llévame a villie</span>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
 
     <div class="confirm-steps">
-      <div class="confirm-steps-eyebrow">IF THE BUTTON DOESN'T OPEN THE APP</div>
+      <div class="confirm-steps-eyebrow">
+        <span class="lang-en">IF THE BUTTON DOESN'T OPEN THE APP</span>
+        <span class="lang-es">SI EL BOTÓN NO ABRE LA APP</span>
+      </div>
       <ol>
-        <li>Open <strong>villie</strong> on your phone</li>
-        <li>Tap <strong>Sign in</strong> at the bottom of the welcome screen</li>
-        <li>Enter your email and the password you just chose</li>
+        <li class="lang-en">Open <strong>villie</strong> on your phone</li>
+        <li class="lang-en">Tap <strong>Sign in</strong> at the bottom of the welcome screen</li>
+        <li class="lang-en">Enter your email and the password you just chose</li>
+        <li class="lang-es">Abre <strong>villie</strong> en tu teléfono</li>
+        <li class="lang-es">Toca <strong>Iniciar sesión</strong> al final de la pantalla de bienvenida</li>
+        <li class="lang-es">Ingresa tu correo y la contraseña que acabas de elegir</li>
       </ol>
     </div>
 
     <p class="confirm-note">
-      Don't have villie installed yet? Check your invite email from
-      <strong>TestFlight</strong>, or reach us at
-      <a href="mailto:hello@villieapp.com">hello@villieapp.com</a>.
+      <span class="lang-en">
+        Don't have villie installed yet? Check your invite email from
+        <strong>TestFlight</strong>, or reach us at
+        <a href="mailto:hello@villieapp.com">hello@villieapp.com</a>.
+      </span>
+      <span class="lang-es">
+        ¿Aún no tienes villie instalado? Revisa tu correo de invitación de
+        <strong>TestFlight</strong>, o escríbenos a
+        <a href="mailto:hello@villieapp.com">hello@villieapp.com</a>.
+      </span>
     </p>
   </main>
 
   <footer class="site">
     <p>
       <span class="lp-footer-mark"><img src="/villie-v-mark.png" alt="" /></span>
-      villie · a village for every mom &nbsp;·&nbsp;
-      <a href="/privacy.html">Privacy</a>·
-      <a href="/terms.html">Terms</a>·
-      <a href="/contact.html">Contact</a>
+      <span class="lang-en">villie · a village for every mom</span>
+      <span class="lang-es">villie · una villa para cada mamá</span>
+      &nbsp;·&nbsp;
+      <a href="/privacy.html"><span class="lang-en">Privacy</span><span class="lang-es">Privacidad</span></a>·
+      <a href="/terms.html"><span class="lang-en">Terms</span><span class="lang-es">Términos</span></a>·
+      <a href="/contact.html"><span class="lang-en">Contact</span><span class="lang-es">Contacto</span></a>
     </p>
   </footer>
 
