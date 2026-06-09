@@ -357,7 +357,10 @@ function Stage({
     const el = stageRef.current;
     const measure = () => {
       const barH = 44; // playback bar height
-      const s = Math.min(
+      // COVER (fill the canvas area, cropping overflow) rather than contain —
+      // portrait clips should fill the screen with no letterbox. The canvas
+      // area has overflow:hidden, so the cropped edges are clipped cleanly.
+      const s = Math.max(
         el.clientWidth / width,
         (el.clientHeight - barH) / height
       );
