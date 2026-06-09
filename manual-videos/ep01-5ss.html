@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Village — Soothing a Fussy Baby (The 5 S's)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    background: #F4EEE6;
+    overflow: hidden;
+    font-family: 'Inter Tight', system-ui, sans-serif;
+  }
+  #root { position: absolute; inset: 0; }
+</style>
+
+<!-- Speaker / VO script (per second) - kept short so we can see it as
+     the user records voiceover. Not displayed; just reference. -->
+<script type="application/json" id="vo-script">
+{
+  "0-5":   "Your baby is crying. Again. You've fed, you've changed... now what?",
+  "5-10":  "There's a method called the 5 S's. Each one mimics the womb.",
+  "10-19": "First — swaddle. Wrap them snug. Arms down, tight at the chest, loose at the hips.",
+  "19-28": "Second — side or stomach. But only in your arms. For sleep, always on the back.",
+  "28-37": "Third — shush. As loud as their cry, right by their ear. White noise works too.",
+  "37-46": "Fourth — swing. Tiny, fast jiggles, around three per second. Not big rocks.",
+  "46-55": "Fifth — suck. A pacifier or finger. This one comes last, after the other four.",
+  "55-62": "Combine all five and hold for five minutes. You've got this."
+}
+</script>
+</head>
+<body>
+
+<div id="root" data-screen-label="t=0.0s"></div>
+
+
+<script src="vendor/react.production.min.js"></script>
+<script src="vendor/react-dom.production.min.js"></script>
+<script src="ep01-5ss.app.js"></script>
+</body>
+</html>
