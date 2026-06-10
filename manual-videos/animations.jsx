@@ -436,7 +436,7 @@ function Stage({
         position: 'absolute', inset: 0,
         display: 'flex', flexDirection: 'column',
         alignItems: 'center',
-        background: '#0a0a0a',
+        background: '#F4EEE6',
         fontFamily: 'Inter, system-ui, sans-serif',
       }}
     >
@@ -548,14 +548,14 @@ function PlaybackBar({ time, duration, playing, onPlayPause, onReset, onSeek, on
     <div style={{
       display: 'flex', alignItems: 'center', gap: 12,
       padding: '8px 16px',
-      background: 'rgba(20,20,20,0.92)',
-      borderTop: '1px solid rgba(255,255,255,0.08)',
+      background: 'transparent',
+      borderTop: '1px solid rgba(67,38,15,0.10)',
       width: '100%',
       maxWidth: 680,
       alignSelf: 'center',
 
       borderRadius: 8,
-      color: '#f6f4ef',
+      color: '#5A4F45',
       fontFamily: 'Inter, system-ui, sans-serif',
       userSelect: 'none',
       flexShrink: 0,
@@ -584,7 +584,7 @@ function PlaybackBar({ time, duration, playing, onPlayPause, onReset, onSeek, on
         fontSize: 12,
         fontVariantNumeric: 'tabular-nums',
         width: 64, textAlign: 'right',
-        color: '#f6f4ef',
+        color: '#5A4F45',
       }}>
         {fmt(time)}
       </div>
@@ -606,13 +606,13 @@ function PlaybackBar({ time, duration, playing, onPlayPause, onReset, onSeek, on
         <div style={{
           position: 'absolute',
           left: 0, right: 0, height: 4,
-          background: 'rgba(255,255,255,0.12)',
+          background: 'rgba(67,38,15,0.14)',
           borderRadius: 2,
         }}/>
         <div style={{
           position: 'absolute',
           left: 0, width: `${pct}%`, height: 4,
-          background: 'oklch(72% 0.12 250)',
+          background: '#D96C88',
           borderRadius: 2,
         }}/>
         <div style={{
@@ -620,9 +620,9 @@ function PlaybackBar({ time, duration, playing, onPlayPause, onReset, onSeek, on
           left: `${pct}%`, top: '50%',
           width: 12, height: 12,
           marginLeft: -6, marginTop: -6,
-          background: '#fff',
+          background: '#D96C88',
           borderRadius: 6,
-          boxShadow: '0 2px 4px rgba(0,0,0,0.4)',
+          boxShadow: '0 2px 4px rgba(67,38,15,0.25)',
         }}/>
       </div>
 
@@ -632,7 +632,7 @@ function PlaybackBar({ time, duration, playing, onPlayPause, onReset, onSeek, on
         fontSize: 12,
         fontVariantNumeric: 'tabular-nums',
         width: 64, textAlign: 'left',
-        color: 'rgba(246,244,239,0.55)',
+        color: 'rgba(90,79,69,0.55)',
       }}>
         {fmt(duration)}
       </div>
@@ -651,10 +651,10 @@ function IconButton({ children, onClick, title }) {
       style={{
         width: 28, height: 28,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: hover ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(255,255,255,0.1)',
+        background: hover ? 'rgba(67,38,15,0.10)' : 'rgba(67,38,15,0.05)',
+        border: '1px solid rgba(67,38,15,0.12)',
         borderRadius: 6,
-        color: '#f6f4ef',
+        color: '#5A4F45',
         cursor: 'pointer',
         padding: 0,
         transition: 'background 120ms',
