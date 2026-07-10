@@ -1278,7 +1278,7 @@
         </div>
 
         <form class="lp-waitlist-form reveal reveal-d1" id="lp-waitlist-form" novalidate
-              method="POST" action="https://formspree.io/f/REPLACE_ME">
+             >
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"
                  style="position:absolute;left:-9999px;opacity:0;">
 
@@ -1365,7 +1365,7 @@
   </footer>
 
   <script>
-    // Waitlist submit — dry-run when action= contains REPLACE_ME.
+    // Waitlist submit — posts directly to Supabase (see payload below).
     (function () {
       var form = document.getElementById('lp-waitlist-form');
       var success = document.getElementById('lp-waitlist-success');
