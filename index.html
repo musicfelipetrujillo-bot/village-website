@@ -1385,11 +1385,16 @@
         var data = new FormData(form);
         var SB_URL = 'https://albyndcruwopulazvpjs.supabase.co';
         var SB_KEY = 'sb_publishable_zBiBB7U-7BGuAcfMfivMcQ_IRuYo4yj';
+        // Attribution: ?src=nicklaus (or ?utm_source=...) tags where the signup came from.
+        // e.g. a QR on the Nicklaus NICU pamphlet -> villieapp.com/?src=nicklaus
+        var params = new URLSearchParams(window.location.search);
+        var src = (params.get('src') || params.get('utm_source') || 'website')
+          .replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 60) || 'website';
         var payload = {
           first_name: (data.get('first_name') || '').trim(),
           email: (data.get('email') || '').trim().toLowerCase(),
           zip: (data.get('zip') || '').trim() || null,
-          source: 'website'
+          source: src
         };
 
         fetch(SB_URL + '/rest/v1/waitlist', {
