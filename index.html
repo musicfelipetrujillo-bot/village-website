@@ -14,7 +14,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://villieapp.com/" />
   <meta property="og:site_name" content="villie" />
-  <meta property="og:image" content="https://villieapp.com/og-image.png" />
+  <meta property="og:image" content="https://villieapp.com/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="villie — a village for every mom" />
@@ -23,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="villie · a village for every mom" />
   <meta name="twitter:description" content="the support you wish came with the baby. one app for the whole first year." />
-  <meta name="twitter:image" content="https://villieapp.com/og-image.png" />
+  <meta name="twitter:image" content="https://villieapp.com/og-image.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -98,9 +99,9 @@
       padding-left: 8px;
       padding-right: 24px;
     }
-    header.site .brand.brand-villie img { height: 64px; }
+    header.site .brand.brand-villie img { height: 42px; }
     @media (max-width: 900px) {
-      header.site .brand.brand-villie img { height: 50px; }
+      header.site .brand.brand-villie img { height: 36px; }
       header.site .inner { padding-left: 4px; }
     }
     /* Phone: stack nav under the wordmark so neither wraps mid-link.
@@ -113,16 +114,19 @@
         gap: 6px;
         padding: 9px 16px 9px 8px;
       }
-      header.site .brand.brand-villie img { height: 44px; }
-      header.site nav {
+      header.site .brand.brand-villie img { height: 30px; }
+      /* The `body` prefix matches the "Header nav" block further down, so
+         these phone rules can never be outranked by it. They were dead until
+         now for exactly that reason (source order beat them at equal
+         specificity) and the nav wrapped "Contact" onto its own line. */
+      body header.site nav {
         gap: 14px;
-        font-size: 12.5px;
         flex-wrap: wrap;
       }
-      header.site nav a { white-space: nowrap; }
+      body header.site nav a { white-space: nowrap; font-size: 12.5px; }
     }
     .lp-footer-mark { display: inline-block; vertical-align: middle; margin-right: var(--s-2); }
-    .lp-footer-mark img { height: 22px; width: auto; display: block; opacity: 0.8; }
+    .lp-footer-mark img { height: 16px; width: auto; display: block; opacity: 0.8; }
 
     /* ── Wider container ── */
     main.lp { max-width: 1180px; margin: 0 auto; padding: 0 24px 12px; position: relative; }
@@ -1150,10 +1154,16 @@
     /* ── Header nav ── */
     /* Header melts into the warm page — no cold white bar / border line. */
     body header.site { background: transparent; border-bottom-color: transparent; }
-    body header.site nav { gap: 24px; }
     /* lock every nav link to the same size + weight (no "For specialists"
-       reading bigger than "Home") */
-    body header.site nav a { font-size: 14.5px; font-weight: 500; letter-spacing: 0.1px; }
+       reading bigger than "Home").
+       Scoped to >=601px on purpose: media queries add no specificity, so an
+       unscoped `body header.site nav` here would win on source order and
+       silently kill the phone rules in the 600px block above. */
+    body header.site nav a { font-weight: 500; letter-spacing: 0.1px; }
+    @media (min-width: 601px) {
+      body header.site nav { gap: 24px; }
+      body header.site nav a { font-size: 14.5px; }
+    }
   </style>
 </head>
 <body>

@@ -7,3 +7,10 @@
 
 # Design exploration / WIP (not for production)
 manual-tile-options.html
+
+# Superseded landing exploration (index.html is the live V10 page)
+index-genz.html
+
+# Master render of the share card (2400x1260, ~1MB). The shipped asset is the
+# 1200x630 og-image.jpg; regenerate both from og-card.html.
+og-image.png

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Caveat:wght@700&family=Hanken+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  .card {
+    width: 1200px; height: 630px; position: relative;
+    padding: 86px 90px;
+    display: flex; flex-direction: column; justify-content: center;
+    background:
+      radial-gradient(42% 60% at 10% 10%, rgba(244,197,60,0.42), transparent 60%),
+      radial-gradient(46% 64% at 92% 14%, rgba(247,197,203,0.58), transparent 62%),
+      radial-gradient(52% 72% at 88% 92%, rgba(217,108,136,0.24), transparent 62%),
+      linear-gradient(165deg, #FCEFE0, #FBE6D3);
+    font-family: 'Hanken Grotesk', sans-serif;
+  }
+  .wm {
+    position: absolute; top: 60px; left: 90px;
+    font-family: 'Bricolage Grotesque'; font-weight: 800; font-style: italic;
+    font-size: 42px; letter-spacing: -0.02em; color: #A86D7D;
+  }
+  .pill {
+    position: absolute; top: 66px; left: 250px;
+    font-family: 'Hanken Grotesk'; font-weight: 600; font-size: 15px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: #C25A78;
+    background: rgba(247,197,203,0.55); border: 1px solid rgba(217,108,136,0.42);
+    border-radius: 999px; padding: 9px 18px;
+  }
+  h1 {
+    font-family: 'Bricolage Grotesque'; font-weight: 800;
+    font-size: 100px; line-height: 0.94; letter-spacing: -0.035em;
+    color: #43260F; max-width: 700px;
+  }
+  h1 em {
+    font-family: 'Caveat'; font-style: normal; font-weight: 700;
+    color: #D96C88; font-size: 1.18em;
+  }
+  p {
+    font-family: 'Hanken Grotesk'; font-weight: 500;
+    font-size: 29px; line-height: 1.32; color: #7A4A24;
+    margin-top: 30px; max-width: 660px;
+  }
+  .bee {
+    position: absolute; right: 58px; bottom: 36px; width: 320px; height: auto;
+    filter: drop-shadow(0 18px 30px rgba(107,46,14,0.22));
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="wm">villie</div>
+    <div class="pill">opening city by city · miami first</div>
+    <h1>a village for every <em>mom.</em></h1>
+    <p>the manual, screened milk, vetted specialists, recall-checked gear &amp; real plans. one app for the whole first year.</p>
+    <img class="bee" src="villie-bee.png" alt="" />
+  </div>
+</body>
+</html>
