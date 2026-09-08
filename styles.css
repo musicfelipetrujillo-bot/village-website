@@ -7,26 +7,28 @@
 :root {
   /* ───── v2 brand · Sunshine With Depth ───── */
   /* Surfaces */
-  --cream:        #F4ECD8;  /* page */
-  --paper:        #FDFBF6;  /* alt page */
-  --parchment:    #EAE0C8;  /* cards */
-  --card:         #FEFAF6;  /* pure-white substitute */
-  --butter:       #FAD080;  /* sunshine honey — gentle hero halos */
-  --marigold:     #F2C130;  /* IG hero pop */
-  /* Action — one cinnamon per screen */
-  --cinnamon:     #C07840;
-  --cinnamon-dk:  #9F5F30;
+  /* ───── Aligned to the V10 app brand (apps/mobile/src/utils/constants.ts) ───── */
+  --cream:        #FCF7EF;  /* page (genz_cream) */
+  --paper:        #FFFCF6;  /* alt page (genz_bone) */
+  --parchment:    #F2E6DD;  /* cards (genz_clay) */
+  --card:         #FFFCF6;  /* pure-white substitute */
+  --butter:       #F4C53C;  /* honey — bee, sunshine, halos (genz_honey) */
+  --marigold:     #F4C53C;  /* honey energy */
+  /* Action — ROSE is the app's one spark (genz_rose). The token keeps the
+     "cinnamon" name so existing rules work, but the value is now app rose. */
+  --cinnamon:     #D96C88;  /* genz_rose — CTA, link, the spark */
+  --cinnamon-dk:  #C25A78;  /* genz_berry — pressed */
   /* Support row */
-  --caramel:      #D4A880;  /* italic names, neutral chips */
-  --blush:        #F5BEB6;  /* tenderness, empathy */
-  --salmon:       #EDA8A0;  /* empathy with energy */
+  --caramel:      #E98A6A;  /* warm chestnut accent (genz_caramel) */
+  --blush:        #F7C5CB;  /* empathy (genz_blush) */
+  --salmon:       #F7C5CB;
   /* Inks */
-  --cocoa:        #3D1F0E;  /* UI headlines — use instead of #000 */
-  --walnut:       #7A4A28;  /* IG body, never near-black */
-  --amber:        #A77349;  /* eyebrows, captions, secondary */
+  --cocoa:        #43260F;  /* chestnut ink (genz_chestnut) — instead of #000 */
+  --walnut:       #7A4A24;  /* body on cream (genz_softink) */
+  --amber:        #7A4A24;  /* eyebrows/secondary (app uses softink) */
   /* Reserve */
-  --sage:         #D8CEB0;  /* cool exhale */
-  --moss:         #606E46;  /* Heal chapter only */
+  --sage:         #E98A6A;
+  --moss:         #E98A6A;
   --persimmon:    #E0543B;  /* IG only — NEVER in the app */
   /* Manual chapter pills — IN-APP defaults (the "fresh" preset). The
      hand-drawn sub-palette below is the alternate "original" preset. */
@@ -71,7 +73,7 @@ html, body {
   /* v2: Plus Jakarta Sans replaces DM Sans for all body / UI / forms.
      DM Sans is kept as a system fallback during the migration window
      so older cached pages render passably until the new font loads. */
-  font-family: 'Plus Jakarta Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Hanken Grotesk', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -84,6 +86,13 @@ a {
   transition: border-color 120ms ease;
 }
 a:hover { border-bottom-color: var(--rust); }
+/* Visible keyboard focus ring for links + buttons (accessibility) */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
 
 header.site {
   border-bottom: 1px solid var(--border);
@@ -100,7 +109,7 @@ header.site .inner {
   flex-wrap: wrap;
 }
 header.site .brand {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Bricolage Grotesque', Georgia, sans-serif;
   font-style: italic;
   font-size: 22px;
   color: var(--brown-deep);
@@ -109,20 +118,22 @@ header.site .brand {
 
 /* v2 wordmark — hand-drawn villie PNG. Replaces the Playfair italic
    "The Village" wordmark on any page that opts in with `.brand-villie`.
-   56px desktop scale matches the brand kit's phone mockup; 44px on narrow
-   screens prevents the nav from crowding. */
+   The asset is TRIMMED to its ink bounds, so these heights are the wordmark's
+   real rendered height. (It used to carry 58% transparent padding, which made
+   a nominal 56px render as ~23px of visible logo — the "logo looks tiny"
+   complaint. Never re-export this PNG with padding.) */
 header.site .brand.brand-villie {
   display: inline-flex;
   align-items: center;
   padding: 2px 0;
 }
 header.site .brand.brand-villie img {
-  height: 56px;
+  height: 38px;
   width: auto;
   display: block;
 }
 @media (max-width: 600px) {
-  header.site .brand.brand-villie img { height: 44px; }
+  header.site .brand.brand-villie img { height: 30px; }
 }
 header.site nav {
   display: flex;
@@ -148,7 +159,7 @@ main {
    inline via <em>. h3 swaps from DM Sans tracked-caps to JetBrains Mono,
    walnut color, per the v2 eyebrow/metadata mapping. */
 h1 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Bricolage Grotesque', Georgia, sans-serif;
   font-weight: 700;
   font-size: 44px;
   line-height: 1.05;
@@ -162,7 +173,7 @@ h1 em {
   color: var(--caramel);
 }
 h2 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Bricolage Grotesque', Georgia, sans-serif;
   font-weight: 700;
   font-size: 24px;
   line-height: 1.15;
@@ -185,6 +196,17 @@ h3 {
   letter-spacing: 0.26em;
 }
 
+/* V10 flourish: <em> inside a display heading renders as the Caveat hand-script
+   (matches the app + landing). Scoped to headings so legal body emphasis stays
+   a normal italic. */
+h1 em, h2 em, .card h3 em {
+  font-family: 'Caveat', cursive;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.15em;
+  letter-spacing: 0;
+}
+
 p { margin: 0 0 14px; color: var(--text-dark); }
 ul, ol { margin: 0 0 14px; padding-left: 22px; }
 li { margin-bottom: 6px; }
@@ -202,17 +224,16 @@ li { margin-bottom: 6px; }
 }
 
 .callout {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--rust);
+  background: rgba(217,108,136,0.06);
+  border: 1px solid rgba(217,108,136,0.28);
   padding: 16px 20px;
-  border-radius: 8px;
+  border-radius: 14px;
   margin: 24px 0;
 }
 .callout strong { color: var(--brown-deep); }
 
-.callout.crisis { border-left-color: #B22A2A; }
-.callout.olive  { border-left-color: var(--olive); }
+.callout.crisis { background: rgba(178,42,42,0.06); border-color: rgba(178,42,42,0.30); }
+.callout.olive  { background: rgba(96,110,70,0.07); border-color: rgba(96,110,70,0.30); }
 
 .cards {
   display: grid;
@@ -225,16 +246,16 @@ li { margin-bottom: 6px; }
   h1 { font-size: 32px; }
 }
 .card {
-  background: var(--white);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  border-bottom: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 6px 16px rgba(61,31,14,0.06);
 }
 .card a { border-bottom: none; }
 /* v2 card title — Playfair roman 700 cocoa, replaces v1 rust-uppercase eyebrow look */
 .card h3 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Bricolage Grotesque', Georgia, sans-serif;
   font-weight: 700;
   margin: 0 0 8px;
   text-transform: none;
