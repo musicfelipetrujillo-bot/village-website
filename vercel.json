@@ -20,13 +20,6 @@
       "destination": "/contact.html"
     }
   ],
-  "redirects": [
-    {
-      "source": "/auth/confirm",
-      "destination": "/auth/confirm/",
-      "permanent": false
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
