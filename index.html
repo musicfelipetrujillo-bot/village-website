@@ -40,7 +40,7 @@
        vibe. 60/30/10 surface rule: 60% cream/paper, 30% earth, 10% cinnamon. */
 
     /* ════════ NON-NEGOTIABLE INVARIANTS (check on EVERY change) ════════
-       1. COLOR: action/accent = rose #D96C88 (var(--cinnamon)). No raw
+       1. COLOR: action/accent = scarlet #E14A32 (var(--cinnamon)). No raw
           cinnamon-brown (#C07840 / rgba(192,120,64) / rgba(150,80,50)). After
           any brand change, grep the WHOLE file for stray hexes, not just the
           obvious rule. Prefer var() over hardcoded.
@@ -237,7 +237,7 @@
       display: inline-flex; align-items: center; gap: 9px;
       margin-bottom: var(--s-5);
       background: rgba(247,197,203,0.26);
-      border: 1px solid rgba(217,108,136,0.32);
+      border: 1px solid rgba(225,74,50,0.32);
       border-radius: 999px;
       padding: 6px 14px 6px 12px;
     }
@@ -247,9 +247,9 @@
       animation: lp-dot-pulse 2.2s ease-out infinite;
     }
     @keyframes lp-dot-pulse {
-      0%   { box-shadow: 0 0 0 0 rgba(217,108,136,0.45); }
-      70%  { box-shadow: 0 0 0 7px rgba(217,108,136,0); }
-      100% { box-shadow: 0 0 0 0 rgba(217,108,136,0); }
+      0%   { box-shadow: 0 0 0 0 rgba(225,74,50,0.45); }
+      70%  { box-shadow: 0 0 0 7px rgba(225,74,50,0); }
+      100% { box-shadow: 0 0 0 0 rgba(225,74,50,0); }
     }
     @media (prefers-reduced-motion: reduce) { .lp-hero-eyebrow::before { animation: none; } }
 
@@ -311,7 +311,7 @@
     }
     .lp-btn-primary:hover::after { left: 135%; }
     .lp-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(148, 90, 65, 0.42), inset 0 1px 0 rgba(255,255,255,0.2); }
-    .lp-btn-primary:focus-visible { outline: 3px solid rgba(217,108,136,0.55); outline-offset: 3px; }
+    .lp-btn-primary:focus-visible { outline: 3px solid rgba(225,74,50,0.55); outline-offset: 3px; }
 
     /* Quiet scroll affordance beside the primary CTA */
     .lp-hero-ghost {
@@ -343,7 +343,7 @@
       text-decoration: none;
     }
     .lp-btn-secondary:hover { transform: translateY(-1px); background: #DCD0B4; }
-    .lp-btn-secondary:focus-visible { outline: 3px solid rgba(217,108,136,0.55); outline-offset: 3px; }
+    .lp-btn-secondary:focus-visible { outline: 3px solid rgba(225,74,50,0.55); outline-offset: 3px; }
 
     /* Bee mascot */
     .lp-hero-bee {
@@ -670,7 +670,7 @@
     /* Per-section card surface tint + border — each room now carries a soft
        wash of its own accent so the bento reads as five colored doors, not a
        tan card wall. Light enough that cocoa/walnut body text stays crisp. */
-    .lp-vert.manual      { --vert-halo: rgba(217,108,136,0.40); background: linear-gradient(158deg, #FBEFDD, #FAF3E6 70%); border-color: rgba(217,108,136,0.26); }
+    .lp-vert.manual      { --vert-halo: rgba(225,74,50,0.40); background: linear-gradient(158deg, #FBEFDD, #FAF3E6 70%); border-color: rgba(225,74,50,0.26); }
     .lp-vert.milk        { --vert-halo: rgba(226,122,147,0.42); background: linear-gradient(158deg, #FCE9EE, #FCF2F2 72%); border-color: rgba(226,122,147,0.30); }
     .lp-vert.specialists { --vert-halo: rgba(194,120,78,0.40); background: linear-gradient(158deg, #F8EADC, #FAF1E7 72%); border-color: rgba(194,120,78,0.28); }
     .lp-vert.gear        { --vert-halo: rgba(181,129,28,0.30); background: linear-gradient(158deg, #FAF1D5, #FBF5E4 72%); border-color: rgba(181,129,28,0.30); }
@@ -708,7 +708,7 @@
     .lp-section--hive .lp-section-eyebrow {
       gap: 9px; color: var(--cinnamon);
       background: rgba(247,197,203,0.30);
-      border: 1px solid rgba(217,108,136,0.32);
+      border: 1px solid rgba(225,74,50,0.32);
       border-radius: 999px; padding: 7px 15px 7px 13px;
       margin-bottom: var(--s-5);
     }
@@ -1003,7 +1003,7 @@
     .lp-field input:focus {
       outline: none; border-color: var(--cinnamon);
       background: var(--card);
-      box-shadow: 0 0 0 3px rgba(217,108,136,0.22);
+      box-shadow: 0 0 0 3px rgba(225,74,50,0.22);
     }
     .lp-field input::placeholder { color: var(--amber); opacity: 0.5; }
 
@@ -1023,7 +1023,7 @@
       border: 1px solid rgba(166,97,118,0.22);
       transition: background 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out;
     }
-    .lp-chip:hover span { border-color: var(--cinnamon); background: rgba(217,108,136,0.07); }
+    .lp-chip:hover span { border-color: var(--cinnamon); background: rgba(225,74,50,0.07); }
     /* Selected = accent (rose) fill with card text — the brand's chip pattern,
        a clear, satisfying "picked" state. */
     .lp-chip input:checked + span {
@@ -1033,7 +1033,7 @@
       font-weight: 600;
       box-shadow: 0 4px 10px rgba(166,97,118,0.28);
     }
-    .lp-chip input:focus-visible + span { box-shadow: 0 0 0 3px rgba(217,108,136,0.38); }
+    .lp-chip input:focus-visible + span { box-shadow: 0 0 0 3px rgba(225,74,50,0.38); }
 
     .lp-field--zip { max-width: 240px; }
     .lp-field--zip input { letter-spacing: 0.04em; }
@@ -1250,12 +1250,12 @@
       <svg class="lp-pullquote-comb" viewBox="0 0 300 300" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <g stroke="#FFF8EC" stroke-width="1.4" stroke-opacity="0.16" stroke-linejoin="round">
           <polygon points="196,70 173,110 127,110 104,70 127,30 173,30" />
-          <polygon points="196,150 173,190 127,190 104,150 127,110 173,110" fill="#F4C53C" fill-opacity="0.05" />
+          <polygon points="196,150 173,190 127,190 104,150 127,110 173,110" fill="#DA9A2C" fill-opacity="0.05" />
           <polygon points="196,230 173,270 127,270 104,230 127,190 173,190" />
           <polygon points="127,110 104,150 58,150 35,110 58,70 104,70" />
           <polygon points="127,190 104,230 58,230 35,190 58,150 104,150" />
           <polygon points="265,110 242,150 196,150 173,110 196,70 242,70" />
-          <polygon points="265,190 242,230 196,230 173,190 196,150 242,150" fill="#F4C53C" fill-opacity="0.04" />
+          <polygon points="265,190 242,230 196,230 173,190 196,150 242,150" fill="#DA9A2C" fill-opacity="0.04" />
         </g>
       </svg>
       <p class="lp-pullquote-text reveal">it takes a <em>village.</em></p>
@@ -1270,7 +1270,7 @@
         <svg class="lp-waitlist-comb" viewBox="0 0 300 300" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
           <g stroke="#CC8A9C" stroke-width="1.6" stroke-opacity="0.18" stroke-linejoin="round">
             <polygon points="196,70 173,110 127,110 104,70 127,30 173,30" />
-            <polygon points="196,150 173,190 127,190 104,150 127,110 173,110" fill="#F4C53C" fill-opacity="0.07" />
+            <polygon points="196,150 173,190 127,190 104,150 127,110 173,110" fill="#DA9A2C" fill-opacity="0.07" />
             <polygon points="196,230 173,270 127,270 104,230 127,190 173,190" />
             <polygon points="127,110 104,150 58,150 35,110 58,70 104,70" />
             <polygon points="265,110 242,150 196,150 173,110 196,70 242,70" fill="#E27A93" fill-opacity="0.05" />

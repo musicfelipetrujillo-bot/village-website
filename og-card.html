@@ -13,20 +13,22 @@
     background:
       radial-gradient(42% 60% at 10% 10%, rgba(244,197,60,0.42), transparent 60%),
       radial-gradient(46% 64% at 92% 14%, rgba(247,197,203,0.58), transparent 62%),
-      radial-gradient(52% 72% at 88% 92%, rgba(217,108,136,0.24), transparent 62%),
+      radial-gradient(52% 72% at 88% 92%, rgba(225,74,50,0.24), transparent 62%),
       linear-gradient(165deg, #FCEFE0, #FBE6D3);
     font-family: 'Hanken Grotesk', sans-serif;
   }
+  /* The real wordmark asset, not a text lookalike — the card and the site
+     header must never drift apart. villie-wordmark.png is trimmed to its ink
+     bounds, so this height is the wordmark's true rendered height. */
   .wm {
     position: absolute; top: 60px; left: 90px;
-    font-family: 'Bricolage Grotesque'; font-weight: 800; font-style: italic;
-    font-size: 42px; letter-spacing: -0.02em; color: #A86D7D;
+    height: 44px; width: auto; display: block;
   }
   .pill {
     position: absolute; top: 66px; left: 250px;
     font-family: 'Hanken Grotesk'; font-weight: 600; font-size: 15px;
-    letter-spacing: 0.16em; text-transform: uppercase; color: #C25A78;
-    background: rgba(247,197,203,0.55); border: 1px solid rgba(217,108,136,0.42);
+    letter-spacing: 0.16em; text-transform: uppercase; color: #B03A22;
+    background: rgba(247,197,203,0.55); border: 1px solid rgba(225,74,50,0.42);
     border-radius: 999px; padding: 9px 18px;
   }
   h1 {
@@ -36,7 +38,7 @@
   }
   h1 em {
     font-family: 'Caveat'; font-style: normal; font-weight: 700;
-    color: #D96C88; font-size: 1.18em;
+    color: #E14A32; font-size: 1.18em;
   }
   p {
     font-family: 'Hanken Grotesk'; font-weight: 500;
@@ -51,11 +53,10 @@
 </head>
 <body>
   <div class="card">
-    <div class="wm">villie</div>
+    <img class="wm" src="villie-wordmark.png" alt="villie" />
     <div class="pill">opening city by city · miami first</div>
     <h1>a village for every <em>mom.</em></h1>
     <p>the manual, screened milk, vetted specialists, recall-checked gear &amp; real plans. one app for the whole first year.</p>
-    <img class="bee" src="villie-bee.png" alt="" />
   </div>
 </body>
 </html>

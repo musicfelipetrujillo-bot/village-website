@@ -12,12 +12,16 @@
   --paper:        #FFFCF6;  /* alt page (genz_bone) */
   --parchment:    #F2E6DD;  /* cards (genz_clay) */
   --card:         #FFFCF6;  /* pure-white substitute */
-  --butter:       #F4C53C;  /* honey — bee, sunshine, halos (genz_honey) */
-  --marigold:     #F4C53C;  /* honey energy */
-  /* Action — ROSE is the app's one spark (genz_rose). The token keeps the
-     "cinnamon" name so existing rules work, but the value is now app rose. */
-  --cinnamon:     #D96C88;  /* genz_rose — CTA, link, the spark */
-  --cinnamon-dk:  #C25A78;  /* genz_berry — pressed */
+  --butter:       #DA9A2C;  /* honey — bee, sunshine, halos (genz_honey) */
+  --marigold:     #DA9A2C;  /* honey energy */
+  /* Action — SCARLET is the app's one spark. The token keeps the "cinnamon"
+     name so existing rules work, but the value is the app's primary.
+     ⚠️ The app constant is still *named* `genz_rose`, but its VALUE was
+     repainted #D96C88 → #E14A32 on 2026-08-08. The name did not change, so
+     matching by name gives you the old pink. Copy VALUES from
+     apps/mobile/src/utils/constants.ts, never names. */
+  --cinnamon:     #E14A32;  /* genz_rose  — CTA, link, the spark */
+  --cinnamon-dk:  #B03A22;  /* genz_berry — pressed */
   /* Support row */
   --caramel:      #E98A6A;  /* warm chestnut accent (genz_caramel) */
   --blush:        #F7C5CB;  /* empathy (genz_blush) */
@@ -224,8 +228,8 @@ li { margin-bottom: 6px; }
 }
 
 .callout {
-  background: rgba(217,108,136,0.06);
-  border: 1px solid rgba(217,108,136,0.28);
+  background: rgba(225,74,50,0.06);
+  border: 1px solid rgba(225,74,50,0.28);
   padding: 16px 20px;
   border-radius: 14px;
   margin: 24px 0;
