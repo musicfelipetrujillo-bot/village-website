@@ -4,14 +4,7 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/m",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": "(?i).*(bot|crawler|spider|crawling|facebookexternalhit|twitterbot|slackbot|discordbot|whatsapp|telegram|linkedinbot|skype|pinterest|embedly|preview|fetch|googleother|google-inspectiontool|bingbot|duckduckbot|applebot).*"
-        }
-      ],
+      "source": "/watch",
       "destination": "/api/og"
     },
     {

@@ -52,8 +52,13 @@ module.exports = async function handler(req, res) {
   // Humans go straight to the interactive page — unchanged experience, and it
   // keeps the extra hop off the path that a real person waits on.
   const ua = req.headers['user-agent'] || '';
+  // MUST be set on BOTH branches. This response varies by User-Agent, and
+  // without Vary the CDN caches whichever audience arrives first and serves it
+  // to the other — observed live on the first deploy: a person received the
+  // crawler's bare OG document instead of the interactive page.
+  res.setHeader('Vary', 'User-Agent');
   if (!UUID.test(videoId) || !CRAWLER_UA.test(ua)) {
-    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=60');
+    res.setHeader('Cache-Control', 'public, max-age=0');
     res.statusCode = 302;
     res.setHeader('Location', fallback);
     return res.end();
