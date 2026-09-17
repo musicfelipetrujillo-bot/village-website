@@ -1398,13 +1398,25 @@
         // Attribution: ?src=nicklaus (or ?utm_source=...) tags where the signup came from.
         // e.g. a QR on the Nicklaus NICU pamphlet -> villieapp.com/?src=nicklaus
         var params = new URLSearchParams(window.location.search);
-        var src = (params.get('src') || params.get('utm_source') || 'website')
-          .replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 60) || 'website';
+        var clean = function (v, max) {
+          return (v || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, max || 60) || null;
+        };
+        var src = clean(params.get('src') || params.get('utm_source'), 60) || 'website';
+        // The five chips were asked for and then dropped on the floor until
+        // 2026-09-17 — the column didn't exist (migration 138 adds it). Values
+        // must match the CHECK constraint there: trying | pregnant |
+        // postpartum_0_6 | postpartum_6_12 | postpartum_1y.
+        var stage = clean(data.get('stage'), 20);
         var payload = {
           first_name: (data.get('first_name') || '').trim(),
           email: (data.get('email') || '').trim().toLowerCase(),
           zip: (data.get('zip') || '').trim() || null,
-          source: src
+          source: src,
+          stage: stage,
+          // `source` is the platform (instagram, nicklaus); campaign/medium say
+          // WHICH ad — the thing the five-variant test in October turns on.
+          utm_campaign: clean(params.get('utm_campaign'), 60),
+          utm_medium: clean(params.get('utm_medium'), 40)
         };
 
         fetch(SB_URL + '/rest/v1/waitlist', {
